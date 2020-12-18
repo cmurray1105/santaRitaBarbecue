@@ -9,7 +9,7 @@ const PORT = '3000'
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json())
 
-app.get('/meats', (req, res)=>{
+app.get('/products', (req, res)=>{
   console.log('server', req.query.product)
   db.getMeats(req.query.product, (err, result)=>{
     if (err){

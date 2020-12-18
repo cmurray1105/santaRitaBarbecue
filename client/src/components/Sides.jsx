@@ -19,6 +19,12 @@ return (
 <div>
   {sideData.map((side)=>{
     console.log(side.image_url)
+    console.log(side.image_url)
+    let priceString = side.price.toString()
+    console.log(priceString.length)
+    if(priceString.split('.')[1].length ===1){
+      priceString += '0'
+    }
 return(
   <div className='cardContainer'>
   <Card className='root'>
@@ -33,7 +39,11 @@ return(
             {side.product_name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Short description about the food.
+          {priceString}
+            <div className='card-body'>
+            Short description about the side.
+            <img className='card-image' src={side.image_url} />
+            </div>
           </Typography>
         </CardContent>
       </CardActionArea>

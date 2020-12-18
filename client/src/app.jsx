@@ -3,6 +3,8 @@ import Banner from "./components/Banner";
 import Cart from "./components/Cart";
 import Menu from "./components/Menu";
 import Axios from 'axios';
+// import './bootstrap/dist/css/bootstrap.min.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,7 @@ class App extends React.Component {
   }
   getProducts(category) {
     console.log('meat function', category)
-    Axios.get('/meats',
+    Axios.get('/products',
     {params: {
       product: category
     }

@@ -1,12 +1,25 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const PORT = '8008'
+const db = require('../db/queries')
+require('dotenv').config()
+const PORT = '3000'
 
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json())
 
+app.get('/meats', (req, res)=>{
+  console.log('server', req.query.product)
+  db.getMeats(req.query.product, (err, result)=>{
+    if (err){
+      console.log(err)
+    } else {
+      console.log(result)
+      res.send(result)
+    }
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`server is CONNECTED on PORT:${PORT}`);

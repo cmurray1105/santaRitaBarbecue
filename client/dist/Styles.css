@@ -1,1 +1,61 @@
 
+.header {
+  background: blue;
+  grid-area: head;
+}
+.container {
+  display: grid;
+  grid-template-columns:
+ 1fr 1fr 1fr;
+grid-template-rows:
+  1fr 3fr;
+grid-template-areas:
+  "head head head"
+  "body body list";
+}
+.body {
+  background: red;
+  grid-area: body;
+  min-height: 50rem;
+}
+.bbqList {
+grid-area: list;
+background: pink;
+}
+.menuTabs {
+  border:'2px solid green';
+  color:'blue';
+  background:'lightgoldenrodyellow';
+}
+
+.root {
+  box-shadow: -10px 10px 12px -1px rgba(0,0,0,0.59);
+  background-color: white;
+  padding: 7px;
+  margin: 15px;
+  width: 250px;
+  height: 250px;
+  border: 2px solid #e7e7e7;
+
+border-radius: 4px;
+
+padding: .5rem;
+}
+.root:hover {
+  transform: translate(-1%, -1%) scale(1.1);
+}
+.cardContainer {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.card-body {
+  align-items: center;
+  justify-content: center;
+}
+.card-image {
+  max-height:150px;
+}

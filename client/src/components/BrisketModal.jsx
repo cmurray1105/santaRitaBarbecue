@@ -21,6 +21,7 @@ export default function BrisketModal(props) {
       <p id="simple-modal-description">
         Information
       </p>
+
     </div>
   );
 

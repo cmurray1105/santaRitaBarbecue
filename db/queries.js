@@ -38,4 +38,4 @@ getOrders = (cb)=>{
   }
 })
 }
-module.exports ={getMeats}
+module.exports ={getMeats, getOrders}

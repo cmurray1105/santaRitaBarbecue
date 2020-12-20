@@ -5,7 +5,7 @@ import Sides from './Sides'
 import Combos from './Combos'
 function Menu(props) {
   const [key, setKey] = React.useState('meats');
-  const [isOpen, openModal] = React.useState(false)
+
   return (
 <Tabs className="tab-content" onSelect={(index, label) => props.getProducts(label)}>
   <Tab className="menuTab" eventKey="meats" title="Meats" label="Meats">

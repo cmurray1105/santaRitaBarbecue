@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import BrisketModal from './BrisketModal';
 
 const Meats = ({loaded, meats}) => {
-  // const [open, setOpen] = React.useState(false);
-  // const [currentMeat, setMeat] = React.useState(null)
   const handleOpen = () => {
     setOpen(true);
   };
@@ -19,15 +17,6 @@ const Meats = ({loaded, meats}) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const body = (
-    <div className='modal'>
-      <h2 id="simple-modal-title"></h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
-    </div>
-  );
 
   let meatData = []
   console.log(loaded)

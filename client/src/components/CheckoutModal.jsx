@@ -11,6 +11,9 @@ export default function CheckoutModal(props) {
   const [customerName, handleNameChange] = React.useState('');
   const [streetAddress, handleStreetChange] = React.useState('');
   const [startDate, setStartDate] = React.useState(new Date());
+  const [email, handleEmailChange] = React.useState('');
+  const[phone, handlePhoneChange] = React.useState(null);
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -22,7 +25,7 @@ export default function CheckoutModal(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Neighborhood:", neighborhood, "Customer Name", customerName)
+    console.log({address: streetAddress, customerName: customerName, deliveryDate: startDate, neighborhood: neighborhood})
   }
 
   React.useEffect(() => {
@@ -52,7 +55,16 @@ export default function CheckoutModal(props) {
           Street Address:
           <input type="text" value={streetAddress} onChange={e => handleStreetChange(e.target.value)} />
         </label>
+        <label>
+          Email Address:
+          <input type="text" value={email} onChange={e => handleEmailChange(e.target.value)} />
+        </label>
+        <label>
+          Phone:
+          <input type="text" value={phone} onChange={e => handlePhoneChange(e.target.value)} />
+        </label>
         <label>Delivery Date
+
     <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
     </label>
         <input type="submit" value="Submit" />

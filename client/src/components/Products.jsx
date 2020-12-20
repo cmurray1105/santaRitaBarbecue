@@ -9,7 +9,7 @@ import { Modal } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ProductModal from './ProductModal';
 
-const Combos = ({addToCart, loaded, combos}) => {
+const Products = ({loaded, products, addToCart}) => {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -18,17 +18,17 @@ const Combos = ({addToCart, loaded, combos}) => {
     setOpen(false);
   };
 
-  let comboData = []
+  let productData = []
   console.log(loaded)
   if (!loaded){
     return null;
   } else {
-    comboData = combos
+    productData = products
 return (
 <div>
-  {comboData.map((combo)=>{
-    console.log(combo)
-    let priceString = combo.price.toString()
+  {productData.map((product)=>{
+    console.log(product)
+    let priceString = product.price.toString()
     console.log(priceString.length)
     if (priceString.includes('.')){
     if(priceString.split('.')[1].length ===1){
@@ -45,17 +45,17 @@ return(
       <CardActionArea>
         <CardMedia
           className='media'
-          image={combo.image_url}
+          image={product.image_url}
           title="BBQ Card"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {combo.product_name}
+            {product.product_name}
           </Typography>
-            <ProductModal addToCart={addToCart} product={combo}/>
+            <ProductModal product={product} addToCart={addToCart}/>
           <Typography variant="body2" color="textSecondary" component="p">
           ${priceString}
-            <img className='card-image' src={combo.image_url} />
+            <img className='card-image' src={product.image_url} />
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -70,4 +70,4 @@ return(
   )
   }
 }
-export default Combos;
+export default Products;

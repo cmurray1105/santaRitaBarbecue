@@ -37,6 +37,7 @@
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-tabs": "^2.0.0",
     "react-datepicker": "^3.3.0",
+    "react-datetime-picker": "^3.0.4",
     "react-dom": "^16.13.1",
     "style-loader": "^2.0.0",
     "use-constant": "^1.1.0",

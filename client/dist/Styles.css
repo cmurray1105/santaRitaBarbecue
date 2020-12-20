@@ -1,6 +1,5 @@
 
 .header {
-  background: blue;
   grid-area: head;
 }
 .container {
@@ -14,18 +13,16 @@ grid-template-areas:
   "body body list";
 }
 .body {
-  background: red;
   grid-area: body;
   min-height: 50rem;
 }
 .bbqList {
 grid-area: list;
-background: pink;
 }
 .menuTabs {
-  border:'2px solid green';
-  color:'blue';
-  background:'lightgoldenrodyellow';
+  border:2px solid green;
+  color:blue;
+  background:lightgoldenrodyellow;
 }
 
 .root {
@@ -49,8 +46,8 @@ padding: .5rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
 }
 .card-body {
   align-items: center;
@@ -81,4 +78,20 @@ cursor: pointer;
   }
   .media {
     height: 150;
+  }
+  .order-form {
+    display: flex;
+    align-items: center;
+  }
+  label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    color: gray;
+  }
+  input {
+    border: 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
   }

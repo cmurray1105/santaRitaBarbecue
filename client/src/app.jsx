@@ -10,12 +10,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [],
-      loaded: false
+      loaded: false,
+      total: 0,
+      cart: {}
     };
     this.getProducts = this.getProducts.bind(this);
+    this.addToCart = this.addToCart.bind(this)
   }
   componentDidMount() {
     this.getProducts('meats');
+
   }
   getProducts(category) {
     console.log('meat function', category)
@@ -35,6 +39,19 @@ class App extends React.Component {
       console.log(err)
     })
   }
+  addToCart(item) {
+    let total = this.state.total
+    let cartItems = this.state.cart;
+    if (!cartItems[item.productName]){
+      cartItems[item.productName] = 1
+    } else {
+      cartItems[item.productName] += item.quantity
+    }
+    console.log(item.price, "x", item.quantity, "=", (item.price * item.quantity))
+    total += (item.price * item.quantity)
+    this.setState({cart: cartItems,total: total})
+  }
+
   render() {
     return (
       <div>
@@ -43,10 +60,10 @@ class App extends React.Component {
             <Banner />
           </div>
           <div className="body">
-            <Menu getProducts = {this.getProducts} products={this.state.products} loaded={this.state.loaded}/>
+            <Menu addToCart = {this.addToCart} getProducts = {this.getProducts} products={this.state.products} loaded={this.state.loaded}/>
           </div>
           <div className="bbqList">
-          <Cart />
+          <Cart total={this.state.total} products={this.state.products}cartItems={this.state.cart}/>
           </div>
           <div className="footer"></div>
         </div>

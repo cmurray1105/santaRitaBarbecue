@@ -9,13 +9,13 @@ function Menu(props) {
   return (
 <Tabs className="tab-content" onSelect={(index, label) => props.getProducts(label)}>
   <Tab className="menuTab" eventKey="meats" title="Meats" label="Meats">
-    <Meats meats={props.products} loaded={props.loaded}/>
+    <Meats addToCart={props.addToCart} meats={props.products} loaded={props.loaded}/>
   </Tab>
   <Tab className="menuTab" eventKey="Sides" title="Sides" label="Sides">
-    <Sides sides={props.products} loaded={props.loaded}/>
+    <Sides addToCart={props.addToCart}  sides={props.products} loaded={props.loaded}/>
   </Tab>
   <Tab className="menuTab" eventKey="Combos" title="Combos" label="Combos">
-    <Combos />
+    <Combos addToCart={props.addToCart}  combos={props.products} loaded={props.loaded}/>
   </Tab>
   <Tab className="menuTab" eventKey="Dessert" title="Dessert" label="Dessert">
     <Combos />

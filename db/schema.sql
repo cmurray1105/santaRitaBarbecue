@@ -10,7 +10,7 @@ CREATE TABLE product (
   category VARCHAR(255),
   quantity INT,
   image_url VARCHAR(255) NOT NULL,
-  price FLOAT NOT NULL
+  price DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE cart (
@@ -48,11 +48,20 @@ INSERT INTO product (product_name, category, quantity, image_url, price) VALUES 
 
 INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Sausage', 'Meats', 12, 'https://bbqbucket2020.s3.us-east-2.amazonaws.com/sausage.jpg', 6.50);
 
-INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Ribs', 'Meats', 10, 'https://bbqbucket2020.s3.us-east-2.amazonaws.com/ribs.jpg', 19.50);
+INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Ribs', 'Meats', 15, 'https://bbqbucket2020.s3.us-east-2.amazonaws.com/ribs.jpg', 25.00);
 
 INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Mac-n-Cheese', 'Sides', 29, 'https://bbqbucket2020.s3.us-east-2.amazonaws.com/mac-n-cheese.jpg', 5.50);
 
 INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Potato Salad', 'Sides', 35, 'https://bbqbucket2020.s3.us-east-2.amazonaws.com/potato+salad.jpeg', 5.50);
+
+INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Pirate Platter', 'Combos', 12, 'https://bbqbucket2020.s3.us-east-2.amazonaws.com/sausage.jpg', 40.00);
+
+INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Whole Pork Butt', 'Catering', 8, 'https:///bbqbucket2020.s3.us-east-2.amazonaws.com/sausage.jpg', 50.00);
+
+INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Whole USDA Prime Brisket', 'Catering', 8, 'https:///bbqbucket2020.s3.us-east-2.amazonaws.com/sausage.jpg', 100.00);
+
+
+
 
 INSERT INTO cart (street_address, name, city, ordered_at, scheduled_delivery, neighborhood) VALUES ('349 Vista Portola Loop', 'Christopher Murray', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South');
 

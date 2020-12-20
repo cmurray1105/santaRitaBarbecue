@@ -1,4 +1,9 @@
-# ReactBoiler
-Standard React Boiler with Webpack and Basic PKG JSON
+# Scallywag Smoker
 
-Feel Free to Fork and Clone
+To start:
+
+1. Run the command "npm install" in your terminal
+
+2. Run "npm run start-webpack"
+
+3. Run "npm start"

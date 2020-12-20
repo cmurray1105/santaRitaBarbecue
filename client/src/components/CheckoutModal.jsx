@@ -32,6 +32,7 @@ export default function CheckoutModal(props) {
     <div className="paper">
       <h2 id="simple-modal-title">Delivery Info</h2>
       <h3>Total {props.total}</h3>
+      <div className="order-summary"></div>
       <div className="order-form">
       <form onSubmit={handleSubmit}>
 

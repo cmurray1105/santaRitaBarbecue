@@ -16,6 +16,7 @@ class App extends React.Component {
     };
     this.getProducts = this.getProducts.bind(this);
     this.addToCart = this.addToCart.bind(this)
+    this.clearOrder = this.clearOrder.bind(this)
   }
   componentDidMount() {
     this.getProducts('meats');
@@ -50,6 +51,9 @@ class App extends React.Component {
     console.log(item.price, "x", item.quantity, "=", (item.price * item.quantity))
     total += (item.price * item.quantity)
     this.setState({cart: cartItems,total: total})
+  }
+  clearOrder() {
+    this.setState({cart: {},total: 0})
   }
 
   render() {

@@ -20,6 +20,10 @@ app.get('/products', (req, res)=>{
     }
   })
 })
+app.post('/addOrder', (req, res)=>{
+  console.log('server', req.query)
+  db.addDelivery
+})
 
 app.listen(PORT, () => {
   console.log(`server is CONNECTED on PORT:${PORT}`);

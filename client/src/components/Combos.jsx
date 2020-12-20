@@ -9,7 +9,7 @@ import { Modal } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ProductModal from './ProductModal';
 
-const Combos = ({loaded, combos}) => {
+const Combos = ({addToCart, loaded, combos}) => {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -52,7 +52,7 @@ return(
           <Typography gutterBottom variant="h5" component="h2">
             {combo.product_name}
           </Typography>
-            <ProductModal product={combo}/>
+            <ProductModal addToCart={addToCart} product={combo}/>
           <Typography variant="body2" color="textSecondary" component="p">
           ${priceString}
             <img className='card-image' src={combo.image_url} />

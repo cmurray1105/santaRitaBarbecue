@@ -2,18 +2,30 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import DatePicker from "react-datepicker";
-
+import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function CheckoutModal(props) {
   const [open, setOpen] = React.useState(false);
   const [neighborhood, handleChange] = React.useState("SRR South");
-  const [customerName, handleNameChange] = React.useState('');
-  const [streetAddress, handleStreetChange] = React.useState('');
+  const [customerName, handleNameChange] = React.useState("");
+  const [streetAddress, handleStreetChange] = React.useState("");
   const [startDate, setStartDate] = React.useState(new Date());
-  const [email, handleEmailChange] = React.useState('');
-  const[phone, handlePhoneChange] = React.useState(null);
+  const [email, handleEmailChange] = React.useState("");
+  const [phone, handlePhoneChange] = React.useState(null);
 
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      position: "absolute",
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: "2px solid #000",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }));
+
+  const classes = useStyles();
 
   const handleOpen = () => {
     setOpen(true);
@@ -25,54 +37,99 @@ export default function CheckoutModal(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({address: streetAddress, customerName: customerName, deliveryDate: startDate, neighborhood: neighborhood})
-  }
+    axios
+      .post("./addOrder", {
+        address: streetAddress,
+        customerName: customerName,
+        deliveryDate: startDate,
+        neighborhood: neighborhood,
+        cartItems: props.cartItems,
+      })
+      .then((result) => {
+        console.log(result);
+        console.log("cart Items", props.cartItems);
+      });
+  };
 
   React.useEffect(() => {
-
-  })
+    console.log(props);
+  });
   const body = (
-    <div className="paper">
+    <div className={classes.paper}>
       <h2 id="simple-modal-title">Delivery Info</h2>
-      <h3>Total {props.total}</h3>
+      <h3>Total ${props.total}</h3>
       <div className="order-summary"></div>
       <div className="order-form">
-      <form onSubmit={handleSubmit}>
-
-        <label>
-          Select Your Neighborhood:
-          <select value={neighborhood} onChange={e => handleChange(e.target.value)}>
-            <option value="SRR South">Santa Rita Ranch South</option>
-            <option value="SRR North">Santa Rita Ranch North</option>
-            <option value="Morningstar">Morningstar</option>
-          </select>
-        </label>
-        <label>
-          Name:
-          <input type="text" value={customerName} onChange={e => handleNameChange(e.target.value)} />
-        </label>
-        <label>
-          Street Address:
-          <input type="text" value={streetAddress} onChange={e => handleStreetChange(e.target.value)} />
-        </label>
-        <label>
-          Email Address:
-          <input type="text" value={email} onChange={e => handleEmailChange(e.target.value)} />
-        </label>
-        <label>
-          Phone:
-          <input type="text" value={phone} onChange={e => handlePhoneChange(e.target.value)} />
-        </label>
-        <label>Delivery Date
-
-    <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-    </label>
-        <input type="submit" value="Submit" />
-      </form>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Select Your Neighborhood:
+            <br />
+            <select
+              value={neighborhood}
+              onChange={(e) => handleChange(e.target.value)}
+            >
+              <option value="SRR South">Santa Rita Ranch South</option>
+              <option value="SRR North">Santa Rita Ranch North</option>
+              <option value="Morningstar">Morningstar</option>
+            </select>
+          </label>
+          <br />
+          <label>
+            Name:
+            <br />
+            <input
+              type="text"
+              value={customerName}
+              onChange={(e) => handleNameChange(e.target.value)}
+            />
+          </label>
+          <br />
+          <label>
+            Street Address:
+            <br />
+            <input
+              type="text"
+              value={streetAddress}
+              onChange={(e) => handleStreetChange(e.target.value)}
+            />
+          </label>
+          <br />
+          <label>
+            Email Address:
+            <br />
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => handleEmailChange(e.target.value)}
+            />
+          </label>
+          <br />
+          <label>
+            Phone:
+            <br />
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => handlePhoneChange(e.target.value)}
+            />
+          </label>
+          <br />
+          <label>
+            Delivery Date
+            <br />
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
+            {/* <br/> */}
+          </label>
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     </div>
   );
-  console.log(new Date().toISOString().slice(0, 19).replace('T', ' '))
+  console.log(new Date().toISOString().slice(0, 19).replace("T", " "));
   return (
     <div>
       <button type="button" onClick={handleOpen}>
@@ -88,4 +145,4 @@ export default function CheckoutModal(props) {
       </Modal>
     </div>
   );
-};
+}

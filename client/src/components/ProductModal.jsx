@@ -20,7 +20,7 @@ export default function BrisketModal(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.addToCart({productName: props.product.product_name, quantity: parseInt(quantity), price: props.product.price})
+    props.addToCart({productName: props.product.product_name, quantity: parseInt(quantity), price: props.product.price, id: props.product.id})
     handleClose()
   }
 

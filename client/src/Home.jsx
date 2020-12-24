@@ -71,7 +71,7 @@ class Home extends React.Component {
             <Menu addToCart = {this.addToCart} getProducts = {this.getProducts} products={this.state.products} loaded={this.state.loaded}/>
           </div>
           <div className="bbqList">
-          <Cart total={this.state.total} products={this.state.products} cartItems={this.state.cart}/>
+          <Cart clearOrder={this.clearOrder} total={this.state.total} products={this.state.products} cartItems={this.state.cart}/>
           </div>
           <div className="footer"></div>
         </div>

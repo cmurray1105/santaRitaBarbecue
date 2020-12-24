@@ -29,6 +29,7 @@ function Row(props) {
   console.log(row)
   return (
     <React.Fragment>
+
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -41,7 +42,11 @@ function Row(props) {
         <TableCell align="right">{row.neighborhood}</TableCell>
         <TableCell align="right">{row.address}</TableCell>
         <TableCell align="right">{row.deliveryDate}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="right">{row.total}</TableCell>
+        <button>
+        order fulfilled
+      </button>
+
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -53,23 +58,24 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
+                  <TableCell align="right">Quantity</TableCell>
                     <TableCell>Product</TableCell>
                     <TableCell>Price</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
+
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.products.map((historyRow) => {
-                    console.log(historyRow)
+                  {row.products.map((productRow) => {
+                    console.log(productRow)
                     return(
-                    <TableRow key={historyRow.productName}>
+                    <TableRow key={productRow.productName}>
+                    <TableCell align="right">{productRow.quantity}</TableCell>
                       <TableCell component="th" scope="row">
-                        {historyRow.productName}
+                        {productRow.productName}
                       </TableCell>
-                      <TableCell>{historyRow.price}</TableCell>
-                      <TableCell align="right">{historyRow.quantity}</TableCell>
-
+                      <TableCell>{productRow.price}</TableCell>
                     </TableRow>
+
                   )}
                   )}
                 </TableBody>
@@ -78,6 +84,7 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
+
     </React.Fragment>
   );
 }

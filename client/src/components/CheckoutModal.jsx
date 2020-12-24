@@ -48,12 +48,24 @@ export default function CheckoutModal(props) {
       .then((result) => {
         console.log(result);
         console.log("cart Items", props.cartItems);
+        let newQuantities = {}
+        for (let item in props.cartItems){
+          console.log("ITEMMMM", props.cartItems[item])
+          console.log(props.products)
+          newQuantities[item] = props.cartItems[item].quantity
+        }
+        // axios
+        //   .post('/changeQuantity', {})
+
+        handleClose()
+        props.clearOrder()
       });
+
   };
 
-  React.useEffect(() => {
-    console.log(props);
-  });
+  // React.useEffect(() => {
+  //   console.log(props);
+  // });
   const body = (
     <div className={classes.paper}>
       <h2 id="simple-modal-title">Delivery Info</h2>

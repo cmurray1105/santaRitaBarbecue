@@ -59,14 +59,13 @@ class Orders extends React.Component {
 
 
 
-  createData(name, neighborhood, address, deliveryDate, protein, price, products) {
+  createData(name, neighborhood, address, deliveryDate, total, products) {
     return {
       name,
       neighborhood,
       address,
       deliveryDate,
-      protein,
-      price,
+      total,
       products,
     };
   }
@@ -74,10 +73,30 @@ class Orders extends React.Component {
     fillRows() {
   const rows = []
     for (let product in this.state.orders){
-      console.log("PRODUCTTTTT", product, "STATE ORDERS", this.state.orders)
-    rows.push(this.createData(this.state.orders[product].customer, this.state.orders[product].neighborhood, this.state.orders[product].address, this.state.orders[product].deliveryDate, 1,1, this.state.orders[product].products)
+      console.log("PRODUCT", product, "STATE ORDERS", this.state.orders)
+      let total = 0;
+      for (let i = 0; i < this.state.orders[product].products.length; i++){
+        total+= (this.state.orders[product].products[i].price * this.state.orders[product].products[i].quantity)
+
+    }
+    let priceString = total.toString()
+      console.log(priceString.length)
+      if (priceString.includes('.')){
+      if(priceString.split('.')[1].length ===1){
+        priceString += '0'
+      }
+      if(priceString.split('.')[1].length > 2){
+        priceString = priceString.split('.')[0] + '.' + priceString.split('.')[1].slice(0,2)
+      }
+
+    } else{
+        priceString+='.00'
+      }
+      console.log("TOTAL BEFORE PUSHING",  priceString)
+    rows.push(this.createData(this.state.orders[product].customer, this.state.orders[product].neighborhood, this.state.orders[product].address, this.state.orders[product].deliveryDate, `$${priceString}`, this.state.orders[product].products)
     )
     }
+    console.log("America", rows)
     this.setState({rows: rows})
   }
   render(){
@@ -92,7 +111,7 @@ class Orders extends React.Component {
               <TableCell align="right">Address
               </TableCell>
               <TableCell align="right">Delivery Date </TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell align="right">Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,6 +119,7 @@ class Orders extends React.Component {
               <Row key={row.name} row={row} />
             ))}
           </TableBody>
+
         </Table>
       </TableContainer>
     );

@@ -6,7 +6,7 @@ import CheckoutModal from './CheckoutModal.jsx'
 const Cart = (props) =>{
   return(
   <div>
-  <CheckoutModal total={props.total} products={props.products}cartItems={props.cartItems}/>
+  <CheckoutModal clearOrder={props.clearOrder} total={props.total} products={props.products} cartItems={props.cartItems}/>
   Total Due:
   ${props.total}
   </div>

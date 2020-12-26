@@ -20,7 +20,9 @@ street_address VARCHAR(255),
 city VARCHAR(255),
 ordered_at DATETIME NOT NULL,
 scheduled_delivery DATETIME NOT NULL,
-neighborhood VARCHAR(255)
+neighborhood VARCHAR(255),
+email VARCHAR(255),
+phone VARCHAR(255)
 );
 
 CREATE TABLE cart_item (
@@ -63,7 +65,7 @@ INSERT INTO product (product_name, category, quantity, image_url, price) VALUES 
 
 INSERT INTO cart (street_address, name, city, ordered_at, scheduled_delivery, neighborhood) VALUES ('349 Vista Portola Loop', 'Christopher Murray', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South');
 
-INSERT INTO cart (street_address, name, city, ordered_at, scheduled_delivery, neighborhood) VALUES ('349 Vista Portola Loop', 'Nicole Fabiano', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South');
+INSERT INTO cart (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone) VALUES ('349 Vista Portola Loop', 'Nicole Fabiano', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South', 'cmurray1105@gmail.com', '6176887762');
 
 INSERT INTO cart_item (product_id, cart_id, quantity) VALUES (1, 1, 2);
 
@@ -75,4 +77,4 @@ INSERT INTO cart_item (product_id, cart_id, quantity) VALUES (5, 2, 1);
 
 INSERT INTO cart_item (product_id, cart_id, quantity) VALUES (1, 2, 2);
 
-SELECT cart.id, cart_item.quantity, product.product_name, product.price, cart.scheduled_delivery, cart.neighborhood, cart.name, cart.street_address FROM ((cart_item INNER JOIN product ON cart_item.product_id = product.id) INNER JOIN cart on cart_item.cart_id = cart.id);
+SELECT cart.id, cart_item.quantity, product.product_name, product.price, cart.scheduled_delivery, cart.neighborhood, cart.name, cart.street_address, cart.phone, cart.email FROM ((cart_item INNER JOIN product ON cart_item.product_id = product.id) INNER JOIN cart on cart_item.cart_id = cart.id);

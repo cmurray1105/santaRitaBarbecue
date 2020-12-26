@@ -49,7 +49,7 @@ addItemToOrder= (params, cb) => {
 }
 
 getOrders = (cb)=>{
-  connection.query('SELECT cart.id, cart_item.quantity, product.product_name, product.price, cart.scheduled_delivery, cart.neighborhood, cart.name, cart.street_address FROM ((cart_item INNER JOIN product ON cart_item.product_id = product.id) INNER JOIN cart on cart_item.cart_id = cart.id);', (err, result)=>{
+  connection.query('SELECT cart.id, cart_item.quantity, product.product_name, product.price, cart.scheduled_delivery, cart.neighborhood, cart.name, cart.street_address, cart.phone, cart.email FROM ((cart_item INNER JOIN product ON cart_item.product_id = product.id) INNER JOIN cart on cart_item.cart_id = cart.id);', (err, result)=>{
   if (err) {
     cb (err, null)
   } else {

@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function CheckoutModal(props) {
   const [open, setOpen] = React.useState(false);
-  const [neighborhood, handleChange] = React.useState("SRR South");
+  const [neighborhood, handleChange] = React.useState("Santa Rita Ranch South");
   const [customerName, handleNameChange] = React.useState("");
   const [streetAddress, handleStreetChange] = React.useState("");
   const [startDate, setStartDate] = React.useState(new Date());
@@ -44,6 +44,8 @@ export default function CheckoutModal(props) {
         deliveryDate: startDate,
         neighborhood: neighborhood,
         cartItems: props.cartItems,
+        email: email,
+        phone: phone
       })
       .then((result) => {
         console.log(result);
@@ -51,17 +53,21 @@ export default function CheckoutModal(props) {
         let newQuantities = {}
         for (let item in props.cartItems){
           console.log("ITEMMMM", props.cartItems[item])
-          console.log(props.products)
-          newQuantities[item] = props.cartItems[item].quantity
+          console.log(props.products.quantity)
+          // newQuantities[item] = {quantity: props.products.quantity - props.cartItems[item].quantity, id:
         }
         // axios
         //   .post('/changeQuantity', {})
 
         handleClose()
         props.clearOrder()
-      });
-
-  };
+      })
+      .catch((err)=>{
+        if (err){
+          console.log(err);
+        }
+      })
+    };
 
   // React.useEffect(() => {
   //   console.log(props);
@@ -80,8 +86,8 @@ export default function CheckoutModal(props) {
               value={neighborhood}
               onChange={(e) => handleChange(e.target.value)}
             >
-              <option value="SRR South">Santa Rita Ranch South</option>
-              <option value="SRR North">Santa Rita Ranch North</option>
+              <option value="Santa Rita Ranch South">Santa Rita Ranch South</option>
+              <option value="Santa Rita Ranch North">Santa Rita Ranch North</option>
               <option value="Morningstar">Morningstar</option>
             </select>
           </label>

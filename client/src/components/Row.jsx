@@ -26,7 +26,7 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   row.products = row.products || []
-  console.log(row)
+  console.log("ROW!!!!!!!", row)
   return (
     <React.Fragment>
 
@@ -66,7 +66,7 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.products.map((productRow) => {
-                    console.log(productRow)
+                    console.log("proRo", productRow)
                     return(
                     <TableRow key={productRow.productName}>
                     <TableCell align="right">{productRow.quantity}</TableCell>

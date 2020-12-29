@@ -1,7 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Button from '@material-ui/core/Button';
 export default function BrisketModal(props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
   // const [modalStyle] = React.useState(getModalStyle);
@@ -41,7 +42,9 @@ export default function BrisketModal(props) {
             <option value="5">5</option>
           </select>
         </label>
-        <input  type="submit" value="Add to Cart" />
+        <Button  type="submit">
+        <AddShoppingCartIcon />
+        </Button>
       </form>
       </div>
     </div>

@@ -19,8 +19,8 @@ connection.connect((err) => {
   console.log(process.env.DB_PASSWORD)
 });
 
-getMeats = (category, cb) =>{
-  connection.query(`SELECT * FROM product WHERE category = '${category}';`, (err, result) =>{
+getProducts = (category, cb) =>{
+  connection.query(`SELECT * FROM product WHERE category = ?;`, [category], (err, result) =>{
     if (err) {
       cb (err, null)
     } else {
@@ -70,4 +70,4 @@ updateQuantity = (params, cb)=>{
 })
 }
 
-module.exports ={getMeats, getOrders, addDelivery, addItemToOrder, updateQuantity}
+module.exports ={getProducts, getOrders, addDelivery, addItemToOrder, updateQuantity}

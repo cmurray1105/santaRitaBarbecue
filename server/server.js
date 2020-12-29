@@ -11,7 +11,7 @@ app.use(express.json())
 
 app.get('/products', (req, res)=>{
   // console.log('server', req.query.product)
-  db.getMeats(req.query.product, (err, result)=>{
+  db.getProducts(req.query.product, (err, result)=>{
     if (err){
       console.log(err)
     } else {

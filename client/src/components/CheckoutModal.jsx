@@ -1,9 +1,12 @@
 import React from "react";
+import Button from '@material-ui/core/Button';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function CheckoutModal(props) {
   const [open, setOpen] = React.useState(false);
@@ -156,9 +159,9 @@ export default function CheckoutModal(props) {
   console.log(new Date().toISOString().slice(0, 19).replace("T", " "));
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Checkout
-      </button>
+      <Button className="checkoutButton" onClick={handleOpen}>
+      <AddShoppingCartIcon />
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

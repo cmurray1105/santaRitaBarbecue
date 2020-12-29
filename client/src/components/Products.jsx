@@ -9,6 +9,8 @@ import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import ProductModal from './ProductModal';
 
 const Products = ({ loaded, products, addToCart }) => {
@@ -71,7 +73,9 @@ const Products = ({ loaded, products, addToCart }) => {
               <option value="5">5</option>
             </select>
           </label>
-          <input type="submit" value="Add to Cart" />
+          <Button type="submit">
+          <AddShoppingCartIcon />
+          </Button>
         </form>
       </div>
     </div>
@@ -86,7 +90,7 @@ const Products = ({ loaded, products, addToCart }) => {
       <div>
         <Box
           display="flex"
-          flexWrap="nowrap"
+          flexwrap="nowrap"
           p={1}
           m={1}
           bgcolor="background.paper"

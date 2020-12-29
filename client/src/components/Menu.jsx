@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
-import a11yProps from "./a11yProps";
+// import a11yProps from "./a11yProps";
 
 import Products from "./Products";
 import TabPanel from "./TabPanel";

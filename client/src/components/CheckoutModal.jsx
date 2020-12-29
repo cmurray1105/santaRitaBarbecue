@@ -58,7 +58,13 @@ export default function CheckoutModal(props) {
         }
         // axios
         //   .post('/changeQuantity', {})
-
+        axios
+        .post('./updateQuantity', {quantity: 10, productName: 'Brisket'}).then((result)=>{
+          console.log("result of update", result)
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
         handleClose()
         props.clearOrder()
       })

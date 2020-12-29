@@ -38,7 +38,7 @@ addDelivery = (params, cb) => {
   })
 }
 addItemToOrder= (params, cb) => {
-  console.log("params", params)
+  // console.log("params", typeof params)
   connection.query('INSERT INTO cart_item (product_id, cart_id, quantity) VALUES (?, ?, ?);', params, (err, result)=>{
     if (err) {
       cb(err, null)
@@ -58,5 +58,16 @@ getOrders = (cb)=>{
   }
 })
 }
+updateQuantity = (params, cb)=>{
+  console.log("params in quantity update", params)
+  console.log("query called")
+  connection.query('UPDATE product SET QUANTITY =? WHERE product.product_name=?', params, (err, result)=>{
+    if (err) {
+      cb(err, null)
+    } else {
+      cb(null, result)
+    }
+})
+}
 
-module.exports ={getMeats, getOrders, addDelivery, addItemToOrder}
+module.exports ={getMeats, getOrders, addDelivery, addItemToOrder, updateQuantity}

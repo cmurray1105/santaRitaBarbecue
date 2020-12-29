@@ -36,6 +36,7 @@ app.post('/addOrder', (req, res)=>{
       for (item in req.body.cartItems){
       let params = [req.body.cartItems[item].id, id, req.body.cartItems[item].quantity]
       db.addItemToOrder(params, (err, secondResult) =>{
+        // console.log("callback called")
         if (err){
           res.send(err)
         } else {
@@ -45,6 +46,18 @@ app.post('/addOrder', (req, res)=>{
     }
     res.send(results)
   }
+  })
+})
+app.post('/updateQuantity', (req, res)=>{
+  console.log(req.body.quantity, req.body.productName)
+  // let quantity = [req.body.quantity, req.body.productName]
+  let quantity = [req.body.quantity, req.body.productName]
+  db.updateQuantity(quantity, (err, result)=>{
+    if (err){
+      res.send(err)
+    } else {
+      res.send(result)
+    }
   })
 })
 app.get('/getOrders', (req, res)=>{
@@ -63,7 +76,6 @@ app.get('/getOrders', (req, res)=>{
           orders[result[item].id].products.push({productName: result[item].product_name, quantity: result[item].quantity, price: result[item].price})
         }
       }
-      console.log("ORDERS!!!!: ", orders)
       res.send(orders)
     }
   })

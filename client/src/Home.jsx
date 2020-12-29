@@ -18,6 +18,7 @@ class Home extends React.Component {
     this.getProducts = this.getProducts.bind(this);
     this.addToCart = this.addToCart.bind(this)
     this.clearOrder = this.clearOrder.bind(this)
+    // this.categorySelected = this.categorySelected.bind(this)
   }
   componentDidMount() {
     this.getProducts('meats');
@@ -42,6 +43,9 @@ class Home extends React.Component {
       console.log(err)
     })
   }
+  handleCategorySelected(category){
+    console.log(category)
+  }
   addToCart(item) {
     let ids = this.state.productIds;
     let total = this.state.total
@@ -54,6 +58,7 @@ class Home extends React.Component {
     console.log(item.price, "x", item.quantity, "=", (item.price * item.quantity))
     total += (item.price * item.quantity)
     this.setState({cart: cartItems,total: total})
+    console.log("CART AFTER UPDATE", this.state.cart)
   }
 
   clearOrder() {
@@ -68,7 +73,8 @@ class Home extends React.Component {
             <Banner />
           </div>
           <div className="body">
-            <Menu addToCart = {this.addToCart} getProducts = {this.getProducts} products={this.state.products} loaded={this.state.loaded}/>
+            <Menu addToCart = {this.addToCart} getProducts = {this.getProducts} products={this.state.products} loaded={this.state.loaded}
+            />
           </div>
           <div className="bbqList">
           <Cart clearOrder={this.clearOrder} total={this.state.total} products={this.state.products} cartItems={this.state.cart}/>

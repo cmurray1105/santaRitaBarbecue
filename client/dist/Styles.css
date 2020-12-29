@@ -42,7 +42,7 @@ padding: .5rem;
   transform: translate(-1%, -1%) scale(1.1);
 }
 .cardContainer {
-  cursor: pointer;
+  /* cursor: pointer; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -65,9 +65,9 @@ padding: .5rem;
   align-content: center;
   justify-content: center;
 }
-.menuTab {
+/* .menuTab {
 cursor: pointer;
-}
+} */
 .paper {
   position:sticky;
     width: 400;

@@ -29,7 +29,7 @@ getProducts = (category, cb) =>{
 })
 }
 addDelivery = (params, cb) => {
-  connection.query('INSERT INTO cart (street_address, name, city, ordered_at, scheduled_delivery, neighborhood) VALUES (?, ?, ?, ?, ?, ?);', params, (err, results)=>{
+  connection.query('INSERT INTO cart (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', params, (err, results)=>{
     if (err) {
       cb(err, null)
     } else {

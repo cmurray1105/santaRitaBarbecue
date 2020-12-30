@@ -21,10 +21,10 @@ app.get('/products', (req, res)=>{
   })
 })
 app.post('/addOrder', (req, res)=>{
-  console.log('query', req)
+  console.log('query', req.body.address)
   let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
   console.log("del date", req.body.deliveryDate.slice(0, 19).replace('T', ' '))
-  const order = [req.body.address, req.body.customerName, 'Liberty Hill', currentDate, req.body.deliveryDate.slice(0, 19).replace('T', ' '), req.body.neighborhood];
+  const order = [req.body.address, req.body.customerName, 'Liberty Hill', currentDate, req.body.deliveryDate.slice(0, 19).replace('T', ' '), req.body.neighborhood, req.body.email, req.body.phone]
   // console.log("order:", order)
   let id;
   db.addDelivery(order, (err, results)=>{
@@ -65,13 +65,13 @@ app.get('/getOrders', (req, res)=>{
     if (err){
       console.log(err)
     } else {
-      console.log("type", typeof result)
+      console.log("type", result)
       // res.send(result)
       let orders = {}
       for (item in result){
         console.log("ITEM: ", result[item])
         if (!orders[result[item].id]){
-          orders[result[item].id] = {customer: result[item].name, address: result[item].street_address, deliveryDate: result[item].scheduled_delivery, neighborhood: result[item].neighborhood, products: [{productName: result[item].product_name, quantity: result[item].quantity, price: result[item].price}]}
+          orders[result[item].id] = {customer: result[item].name, address: result[item].street_address, deliveryDate: result[item].scheduled_delivery, neighborhood: result[item].neighborhood, email: result[item].email, phone: result[item].phone, products: [{productName: result[item].product_name, quantity: result[item].quantity, price: result[item].price}]}
         } else {
           orders[result[item].id].products.push({productName: result[item].product_name, quantity: result[item].quantity, price: result[item].price})
         }

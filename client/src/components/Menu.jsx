@@ -80,11 +80,12 @@ function Menu(props) {
             label="Catering"
             // {...a11yProps(4)}
           >
-             <Products
+             {/* <Products
               addToCart={props.addToCart}
               products={props.products}
               loaded={props.loaded}
-            />
+              cartItems={props.cartItems}
+            /> */}
           </Tab>
           <Tab
             className="menuTab"
@@ -97,6 +98,7 @@ function Menu(props) {
               addToCart={props.addToCart}
               products={props.products}
               loaded={props.loaded}
+              cartItems={props.cartItems}
             />
           </Tab>
         </Tabs>
@@ -105,6 +107,7 @@ function Menu(props) {
               addToCart={props.addToCart}
               products={props.products}
               loaded={props.loaded}
+              cartItems={props.cartItems}
             />
 
       {/* <TabPanel value={value} index={0}>

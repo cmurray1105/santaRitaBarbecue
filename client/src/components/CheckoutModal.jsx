@@ -57,26 +57,29 @@ export default function CheckoutModal(props) {
         for (let item in props.cartItems){
           console.log("ITEMMMM", props.cartItems[item])
           console.log(props.products.quantity)
+          axios
+          .post('./updateQuantity', {quantity: (props.cartItems[item].originalQuantity - props.cartItems[item].quantity), productName: item}).then((result)=>{
+            console.log("result of update", result)
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+        }
+          handleClose()
+          props.clearOrder()
+
+      })
+        .catch((err)=>{
+          if (err){
+            console.log(err);
+          }
+        })
           // newQuantities[item] = {quantity: props.products.quantity - props.cartItems[item].quantity, id:
         }
         // axios
         //   .post('/changeQuantity', {})
-        axios
-        .post('./updateQuantity', {quantity: 10, productName: 'Brisket'}).then((result)=>{
-          console.log("result of update", result)
-        })
-        .catch((err)=>{
-          console.log(err)
-        })
-        handleClose()
-        props.clearOrder()
-      })
-      .catch((err)=>{
-        if (err){
-          console.log(err);
-        }
-      })
-    };
+
+
 
   // React.useEffect(() => {
   //   console.log(props);
@@ -160,7 +163,8 @@ export default function CheckoutModal(props) {
   return (
     <div>
       <Button className="checkoutButton" onClick={handleOpen}>
-      <AddShoppingCartIcon />
+      {/* <FontAwesomeIcon icon={["far", "coffee"]} /> */}
+      Checkout
       </Button>
       <Modal
         open={open}

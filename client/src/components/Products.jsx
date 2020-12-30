@@ -13,7 +13,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import ProductModal from './ProductModal';
 
-const Products = ({ loaded, products, addToCart }) => {
+const Products = ({ loaded, products, addToCart, cartItems}) => {
   // const handleOpen = () => {
   //   setOpen(true);
   // };
@@ -25,6 +25,10 @@ const Products = ({ loaded, products, addToCart }) => {
   const [quantity, handleChange] = React.useState("0");
   const [customerName, handleNameChange] = React.useState("");
   const [currentProduct, setProduct] = React.useState({});
+  console.log("T/F?", !cartItems)
+  // let currentQuantity = 0
+  let selectedQuantity = 0
+  let currentQuantity = currentProduct.quantity
   // const [value, handleChange] = React.useState('');
   const useStyles = makeStyles({
     root: {
@@ -47,21 +51,48 @@ const Products = ({ loaded, products, addToCart }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  if(cartItems[currentProduct.product_name]){
+    selectedQuantity = cartItems[currentProduct.product_name].quantity
+     currentQuantity = currentProduct.quantity - selectedQuantity
+  }
+
+  // if(cartItems.length > 0){
+  //   if(cartItems[currentProduct.product_name]){
+  //     console.log("CI AND STUFF", cartItems[currentProduct.product_name])
+    // }
+  // } else {
+    // console.log("nope", currentProduct)
+  // }
+
   const handleSubmit = (event) => {
+    console.log("selected", currentQuantity - selectedQuantity)
     event.preventDefault();
+    console.log("currentProduct", currentProduct.quantity)
+    if ((currentQuantity - selectedQuantity) < 0){
+
+      alert(`Please select another quantity. Only ${currentQuantity} left!`)
+    } else {
     addToCart({
       productName: currentProduct.product_name,
       quantity: parseInt(quantity),
       price: currentProduct.price,
       id: currentProduct.id,
+      originalQuantity: currentProduct.quantity
     });
+    // getProducts(currentProduct.category)
     handleClose();
-  };
+  }
+}
   const body = (
     <div className="paper">
       <h2 id="simple-modal-title">{currentProduct.product_name}</h2>
       <div className="order-form">
+      {currentQuantity < 5 ? <div>
+          Only {currentQuantity} left
+        </div> : null}
         <form onSubmit={handleSubmit}>
+
           <label>
             Quantity:
             <select onChange={(e) => handleChange(e.target.value)}>

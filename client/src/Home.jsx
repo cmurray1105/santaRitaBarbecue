@@ -25,7 +25,7 @@ class Home extends React.Component {
 
   }
   getProducts(category) {
-    console.log('meat function', category)
+    // console.log('meat function', category)
     Axios.get('/products',
     {params: {
       product: category
@@ -51,7 +51,7 @@ class Home extends React.Component {
     let total = this.state.total
     let cartItems = this.state.cart;
     if (!cartItems[item.productName]){
-      cartItems[item.productName] = {quantity: item.quantity, id: item.id}
+      cartItems[item.productName] = {quantity: item.quantity, id: item.id, originalQuantity:item.originalQuantity}
     } else {
       cartItems[item.productName].quantity += item.quantity
     }
@@ -73,7 +73,7 @@ class Home extends React.Component {
             <Banner />
           </div>
           <div className="body">
-            <Menu addToCart = {this.addToCart} getProducts = {this.getProducts} products={this.state.products} loaded={this.state.loaded}
+            <Menu addToCart = {this.addToCart} getProducts = {this.getProducts} products={this.state.products} loaded={this.state.loaded} cartItems={this.state.cart}
             />
           </div>
           <div className="bbqList">

@@ -27,6 +27,11 @@ function Row(props) {
   const classes = useRowStyles();
   row.products = row.products || []
   console.log("ROW!!!!!!!", row)
+  let rowSplit = row.deliveryDate.split('-')
+  let year = rowSplit[0];
+  let day = rowSplit[2].slice(0,2);
+  let month = rowSplit[1];
+  let date = `${month}/${day}/${year}`
   return (
     <React.Fragment>
 
@@ -41,7 +46,9 @@ function Row(props) {
         </TableCell>
         <TableCell align="right">{row.neighborhood}</TableCell>
         <TableCell align="right">{row.address}</TableCell>
-        <TableCell align="right">{row.deliveryDate}</TableCell>
+        <TableCell align="right">{row.email}</TableCell>
+        <TableCell align="right">{row.phone}</TableCell>
+        <TableCell align="right">{date}</TableCell>
         <TableCell align="right">{row.total}</TableCell>
         <button>
         order fulfilled

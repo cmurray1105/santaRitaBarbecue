@@ -59,11 +59,13 @@ class Orders extends React.Component {
 
 
 
-  createData(name, neighborhood, address, deliveryDate, total, products) {
+  createData(name, neighborhood, address, email, phone, deliveryDate, total, products) {
     return {
       name,
       neighborhood,
       address,
+      email,
+      phone,
       deliveryDate,
       total,
       products,
@@ -93,7 +95,7 @@ class Orders extends React.Component {
         priceString+='.00'
       }
       console.log("TOTAL BEFORE PUSHING",  priceString)
-    rows.push(this.createData(this.state.orders[product].customer, this.state.orders[product].neighborhood, this.state.orders[product].address, this.state.orders[product].deliveryDate, `$${priceString}`, this.state.orders[product].products)
+    rows.push(this.createData(this.state.orders[product].customer, this.state.orders[product].neighborhood, this.state.orders[product].address, this.state.orders[product].email, this.state.orders[product].phone, this.state.orders[product].deliveryDate, `$${priceString}`, this.state.orders[product].products)
     )
     }
     console.log("America", rows)
@@ -110,6 +112,8 @@ class Orders extends React.Component {
               <TableCell align="right">Neighborhood</TableCell>
               <TableCell align="right">Address
               </TableCell>
+              <TableCell align="right">Email</TableCell>
+              <TableCell align="right">Phone</TableCell>
               <TableCell align="right">Delivery Date </TableCell>
               <TableCell align="right">Total</TableCell>
             </TableRow>

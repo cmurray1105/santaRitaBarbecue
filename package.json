@@ -62,5 +62,6 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^7.0.0-bridge.0"
-  }
+  },
+   "engines" : { "node" : ">=0.12" }
 }

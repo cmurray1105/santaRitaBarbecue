@@ -9,6 +9,7 @@ const PORT = '3000'
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json())
 
+
 app.get('/products', (req, res)=>{
   // console.log('server', req.query.product)
   db.getProducts(req.query.product, (err, result)=>{

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "start-webpack": "webpack --watch --mode development --inline --progress"
+    "start-webpack": "webpack --watch --mode development --inline --progress",
+    "build": "babel server/server.js --out-file server/server.compiled.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,9 +25,11 @@
     "@material-ui/core": "^5.0.0-alpha.20",
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.19.2",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^8.1.0",
     "bootstrap": "^4.5.3",
     "bootstrap-3-card": "^0.2.0",
+    "cors": "^2.8.5",
     "css-loader": "^5.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

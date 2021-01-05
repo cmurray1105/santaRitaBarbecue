@@ -109,50 +109,6 @@ function Menu(props) {
               loaded={props.loaded}
               cartItems={props.cartItems}
             />
-
-      {/* <TabPanel value={value} index={0}>
-        <Products
-          addToCart={props.addToCart}
-          products={props.products}
-          loaded={props.loaded}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Products
-          addToCart={props.addToCart}
-          products={props.products}
-          loaded={props.loaded}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Products
-          addToCart={props.addToCart}
-          products={props.products}
-          loaded={props.loaded}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <Products
-          addToCart={props.addToCart}
-          products={props.products}
-          loaded={props.loaded}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <Products
-          addToCart={props.addToCart}
-          products={props.products}
-          loaded={props.loaded}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-        <Products
-          addToCart={props.addToCart}
-          products={props.products}
-          loaded={props.loaded}
-        />
-      </TabPanel> */}
     </div>
   );
 }

@@ -63,5 +63,5 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^7.0.0-bridge.0"
   },
-   "engines" : { "node" : "v12.18.3" }
+   "engines" : { "node" : "12.13.0" }
 }

@@ -4,9 +4,8 @@ const app = express();
 
 const path = require('path');
 
-const db = require('../db/queries');
+const db = require('../db/queries'); // require('dotenv').config()
 
-require('dotenv').config();
 
 const PORT = process.env.PORT || '3000';
 app.use(express.static(path.join(__dirname, '../client/dist')));

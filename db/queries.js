@@ -4,10 +4,10 @@ require('dotenv').config()
 const mysql = require('mysql');
 const logMeIn = require('./secret')
 const connection = mysql.createConnection({
-  host: logMeIn.HOST,
-  user: logMeIn.DB_USER,
-  password: logMeIn.DB_PASSWORD,
-  database: logMeIn.DATABASE
+  host: process.env.RDS_HOSTNAME  || logMeIn.HOST,
+  user: process.env.RDS_USERNAME ||logMeIn.DB_USER,
+  password: process.env.RDS_PASSWORD || logMeIn.DB_PASSWORD,
+  database: process.env.RDS_DB_NAME || logMeIn.DATABASE
 });
 
 connection.connect((err) => {

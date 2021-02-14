@@ -1,29 +1,15 @@
 import React from "react";
 import Axios from "axios";
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Row from './components/Row'
+import Row from './Row'
 
-const useRowStyles = makeStyles({
-  root: {
-    '& > *': {
-      borderBottom: 'unset',
-    },
-  },
-});
 class Orders extends React.Component {
   constructor(props) {
     super(props);
@@ -56,6 +42,16 @@ class Orders extends React.Component {
         console.log(err);
       });
   }
+  getCategories = () => {
+    Axios.get("/categories").then((result) => {
+      console.log("CATEGORIES", result.data);
+      let cats = [];
+      for (let i = 0; i < result.data.length; i++) {
+        cats.push(result.data[i].name);
+      }
+      this.setState({ categories: cats });
+    });
+  };
 
 
 

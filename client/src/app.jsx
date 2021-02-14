@@ -5,8 +5,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './Home';
-import Orders from './Orders';
+import Home from './components/Home';
+import Orders from './components/Orders';
 export default function App() {
   return (
     <Router>

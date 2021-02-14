@@ -1,115 +1,83 @@
 // import { Tabs, Tab } from "react-bootstrap-tabs";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+// import Typography from "@material-ui/core/Typography";
+// import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-// import a11yProps from "./a11yProps";
-
+// import AppBar from "@material-ui/core/AppBar";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Products from "./Products";
-import TabPanel from "./TabPanel";
+import CheckoutModal from "./CheckoutModal";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-    color: 'red'
-  },
-}));
 function Menu(props) {
-  const [key, setKey] = React.useState("meats");
+  const matches = useMediaQuery("(min-width:800px)");
   const [value, setValue] = React.useState(0);
+  const [hovered, setHovered] = React.useState(null);
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      justifyContent: "center",
+      color: "red",
+      backgroundColor: "white",
+    },
+    hovered: {
+      color: "white",
+      backgroundColor: "red",
+    },
+    scroller: {
+      flexGrow: "0",
+    },
+  }));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    props.getProducts(categories[newValue])
-    // console.log("newValue", value);
-    // // setKey(event.target.value);
-    // console.log("value", event)
+    props.getProducts(props.categories[newValue]);
+  };
+  const handleHover = (cat) => {
+    console.log("CATEGORY", cat);
+    setHovered(cat);
+  };
+  const handleExit = () => {
+    setHovered("");
   };
 
-  const categories = ['Meats', 'Sides', 'Combos', 'Dessert', 'Catering', 'Gift Shop']
+  const classes = useStyles();
+
+  let mapTabs = props.categories.map((category) => {
+    console.log(category);
+    return (
+      <Tab
+        onMouseEnter={() => {
+          handleHover(category);
+        }}
+        onMouseLeave={() => {
+          handleExit();
+        }}
+        className={hovered === category ? classes.hovered : classes.paper}
+        label={category}
+      ></Tab>
+    );
+  });
+
   return (
-    // < className="root">
     <div>
-      <AppBar position="static" color="default">
-        <Tabs
-          className="tab-content"
-          value={value}
-          // indicatorColor="primary"
-          // textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-          // aria-label="scrollable auto tabs example"
-          onChange={handleChange}
-
-        >
-          <Tab className="menuTab" label="Meats">
-            {/* <Products
-              addToCart={props.addToCart}
-              products={props.products}
-              loaded={props.loaded}
-
-            /> */}
-          </Tab>
-          <Tab
-            className="menuTab"
-            label="Sides"
-          >
-          </Tab>
-          <Tab
-            className="menuTab"
-            label="Combos"
-          >
-
-          </Tab>
-          <Tab
-            className="menuTab"
-            eventKey="Dessert"
-            title="Dessert"
-            label="Dessert"
-          >
-
-          </Tab>
-          <Tab
-            className="menuTab"
-            eventKey="Catering"
-            title="Catering"
-            label="Catering"
-            // {...a11yProps(4)}
-          >
-             {/* <Products
-              addToCart={props.addToCart}
-              products={props.products}
-              loaded={props.loaded}
-              cartItems={props.cartItems}
-            /> */}
-          </Tab>
-          <Tab
-            className="menuTab"
-            eventKey="Gift Shop"
-            title="Gift Shop"
-            label="Gift Shop"
-            // {...a11yProps(5)}
-          >
-             <Products
-              addToCart={props.addToCart}
-              products={props.products}
-              loaded={props.loaded}
-              cartItems={props.cartItems}
-            />
-          </Tab>
-        </Tabs>
-      </AppBar>
+      <Tabs
+        classes={{ root: classes.paper, scroller: classes.scroller }}
+        value={value}
+        variant={"scrollable"}
+        scrollButtons="auto"
+        onChange={handleChange}
+        centered
+      >
+        {mapTabs}
+      </Tabs>
       <Products
-              addToCart={props.addToCart}
-              products={props.products}
-              loaded={props.loaded}
-              cartItems={props.cartItems}
-            />
+        convertPriceToString={props.convertPriceToString}
+        addToCart={props.addToCart}
+        products={props.products}
+        loaded={props.loaded}
+        cartItems={props.cartItems}
+      />
     </div>
   );
 }

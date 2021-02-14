@@ -1,6 +1,6 @@
 
 const path = require('path')
-require('dotenv').config()
+// require('dotenv').config()
 const mysql = require('mysql');
 const logMeIn = require('./secret')
 const connection = mysql.createConnection({
@@ -19,7 +19,7 @@ connection.connect((err) => {
   console.log(process.env.DB_PASSWORD)
 });
 
-getProducts = (category, cb) =>{
+const getProducts = (category, cb) =>{
   connection.query(`SELECT * FROM product WHERE category = ?;`, [category], (err, result) =>{
     if (err) {
       cb (err, null)
@@ -28,8 +28,8 @@ getProducts = (category, cb) =>{
   }
 })
 }
-addDelivery = (params, cb) => {
-  connection.query('INSERT INTO cart (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', params, (err, results)=>{
+const addDelivery = (params, cb) => {
+  connection.query('INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', params, (err, results)=>{
     if (err) {
       cb(err, null)
     } else {
@@ -37,9 +37,9 @@ addDelivery = (params, cb) => {
     }
   })
 }
-addItemToOrder= (params, cb) => {
+const addItemToOrder= (params, cb) => {
   // console.log("params", typeof params)
-  connection.query('INSERT INTO cart_item (product_id, cart_id, quantity) VALUES (?, ?, ?);', params, (err, result)=>{
+  connection.query('INSERT INTO order_item (product_id, order_id, quantity) VALUES (?, ?, ?);', params, (err, result)=>{
     if (err) {
       cb(err, null)
     } else {
@@ -48,8 +48,8 @@ addItemToOrder= (params, cb) => {
   })
 }
 
-getOrders = (cb)=>{
-  connection.query('SELECT cart.id, cart_item.quantity, product.product_name, product.price, cart.scheduled_delivery, cart.neighborhood, cart.name, cart.street_address, cart.phone, cart.email FROM ((cart_item INNER JOIN product ON cart_item.product_id = product.id) INNER JOIN cart on cart_item.cart_id = cart.id);', (err, result)=>{
+const getOrders = (cb)=>{
+  connection.query('SELECT orders.id, order_item.quantity, product.product_name, product.price, orders.scheduled_delivery, orders.neighborhood, orders.name, orders.street_address, orders.phone, orders.email FROM ((order_item INNER JOIN product ON order_item.product_id = product.id) INNER JOIN orders on order_item.order_id = orders.id);', (err, result)=>{
   if (err) {
     cb (err, null)
   } else {
@@ -58,7 +58,7 @@ getOrders = (cb)=>{
   }
 })
 }
-updateQuantity = (params, cb)=>{
+const updateQuantity = (params, cb)=>{
   console.log("params in quantity update", params)
   console.log("query called")
   connection.query('UPDATE product SET QUANTITY =? WHERE product.product_name=?', params, (err, result)=>{
@@ -69,5 +69,44 @@ updateQuantity = (params, cb)=>{
     }
 })
 }
+const getCategories = (cb)=>{
+  connection.query('SELECT * FROM categories', (err, result)=>{
+    if (err) {
+      cb(err, null)
+    } else {
+      cb(null, result)
+    }
+  })
+}
+const getInventory = (cb)=>{
+  connection.query('SELECT * from product', (err, result)=>{
+    if (err) {
+      cb(err, null)
+    } else {
+      cb(null, result)
+    }
+  })
+}
+const addInventoryItem = (item, cb)=>{
+  connection.query("INSERT INTO product (product_name, category, quantity, image_url, price) VALUES (?, ?, ?, ?, ?)", item, (err, result)=>{
+    if (err){
+      cb(err, null)
+    }else{
+      cb(null, result)
+    }
+  })
+}
 
-module.exports ={getProducts, getOrders, addDelivery, addItemToOrder, updateQuantity}
+// let id = [5]
+const removeInventoryItem = (id, cb)=>{
+  console.log("id", id)
+  connection.query("DELETE FROM `product` WHERE id = ?", id, (err, result)=>{
+    if (err){
+      cb(err, null)
+    }else{
+      cb(null, result)
+    }
+  })
+}
+
+module.exports ={removeInventoryItem, addInventoryItem, getProducts, getOrders, addDelivery, addItemToOrder, updateQuantity, getCategories, getInventory}

@@ -1,56 +1,51 @@
-"use strict";
-
-var _path = _interopRequireDefault(require("path"));
-
-var _express = _interopRequireDefault(require("express"));
-
-var _queries = _interopRequireDefault(require("../db/queries"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+import path from "path";
+import express from "express";
 
 require("dotenv").config();
 
-var multerS3 = require('multer-s3');
+import db from "../db/queries";
 
-var multer = require('multer');
+const multerS3 = require('multer-s3');
 
-var url = require('url');
+const multer = require('multer');
 
-var AWS = require("aws-sdk");
+const url = require('url');
+
+const AWS = require("aws-sdk");
 
 console.log("ENV", process.env.BUCKET, process.env.ACCESS_KEY, process.env.SECRET);
-var s3 = new AWS.S3({
+const s3 = new AWS.S3({
   accessKeyId: process.env.ACCESS_KEY,
   secretAccessKey: process.env.SECRET,
   Bucket: process.env.BUCKET
 }); // Multer ships with storage engines DiskStorage and MemoryStorage
 // And Multer adds a body object and a file or files object to the request object. The body object contains the values of the text fields of the form, the file or files object contains the files uploaded via the form.
 
-var profileImgUpload = multer({
+const profileImgUpload = multer({
   storage: multerS3({
     s3: s3,
     bucket: process.env.BUCKET,
     acl: 'public-read',
-    key: function key(req, file, cb) {
-      cb(null, _path["default"].basename(file.originalname, _path["default"].extname(file.originalname)) + '-' + Date.now() + _path["default"].extname(file.originalname));
+    key: function (req, file, cb) {
+      cb(null, path.basename(file.originalname, path.extname(file.originalname)) + '-' + Date.now() + path.extname(file.originalname));
     }
   }),
   limits: {
     fileSize: 2000000
   },
   // In bytes: 2000000 bytes = 2 MB
-  fileFilter: function fileFilter(req, file, cb) {
+  fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   }
 }).single('profileImage');
 
 function checkFileType(file, cb) {
   // Allowed ext
-  var filetypes = /jpeg|jpg|png|gif/; // Check ext
+  const filetypes = /jpeg|jpg|png|gif/; // Check ext
 
-  var extname = filetypes.test(_path["default"].extname(file.originalname).toLowerCase()); // Check mime
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase()); // Check mime
 
-  var mimetype = filetypes.test(file.mimetype);
+  const mimetype = filetypes.test(file.mimetype);
 
   if (mimetype && extname) {
     return cb(null, true);
@@ -59,18 +54,18 @@ function checkFileType(file, cb) {
   }
 }
 
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
-var PORT = process.env.HTTP_PORT || 8080;
-var app = (0, _express["default"])();
-app.use(_express["default"]["static"](_path["default"].join(__dirname, "../client/dist")));
+const PORT = process.env.HTTP_PORT || 8080;
+const app = express();
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.send("just gonna send it");
 });
-app.get("/products", function (req, res) {
+app.get("/products", (req, res) => {
   // console.log('server', req.query.product)
-  _queries["default"].getProducts(req.query.product, function (err, result) {
+  db.getProducts(req.query.product, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -79,25 +74,23 @@ app.get("/products", function (req, res) {
     }
   });
 });
-app.post("/addOrder", function (req, res) {
+app.post("/addOrder", (req, res) => {
   console.log("query", req.body);
-  var currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
+  let currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
   console.log("del date", req.body.deliveryDate.slice(0, 19).replace("T", " "));
-  var order = [req.body.address, req.body.customerName, "Liberty Hill", currentDate, req.body.deliveryDate.slice(0, 19).replace("T", " "), req.body.neighborhood, req.body.email, req.body.phone]; // console.log("order:", order)
+  const order = [req.body.address, req.body.customerName, "Liberty Hill", currentDate, req.body.deliveryDate.slice(0, 19).replace("T", " "), req.body.neighborhood, req.body.email, req.body.phone]; // console.log("order:", order)
 
-  var id;
-
-  _queries["default"].addDelivery(order, function (err, results) {
+  let id;
+  db.addDelivery(order, (err, results) => {
     if (err) {
       res.send(err);
     } else {
       // console.log("RESULT FROM ADDING", results.insertId)
-      var _id = results.insertId;
+      let id = results.insertId;
 
-      for (var item in req.body.cartItems) {
-        var params = [req.body.cartItems[item].id, _id, req.body.cartItems[item].quantity];
-
-        _queries["default"].addItemToOrder(params, function (err, secondResult) {
+      for (let item in req.body.cartItems) {
+        let params = [req.body.cartItems[item].id, id, req.body.cartItems[item].quantity];
+        db.addItemToOrder(params, (err, secondResult) => {
           // console.log("callback called")
           if (err) {
             res.send(err);
@@ -111,11 +104,10 @@ app.post("/addOrder", function (req, res) {
     }
   });
 });
-app.post("/updateQuantity", function (req, res) {
+app.post("/updateQuantity", (req, res) => {
   console.log(req.body.quantity, req.body.productName);
-  var quantity = [req.body.quantity.toString(), req.body.productName];
-
-  _queries["default"].updateQuantity(quantity, function (err, result) {
+  let quantity = [req.body.quantity.toString(), req.body.productName];
+  db.updateQuantity(quantity, (err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -123,8 +115,8 @@ app.post("/updateQuantity", function (req, res) {
     }
   });
 });
-app.get("/getOrders", function (req, res) {
-  _queries["default"].getOrders(function (err, result) {
+app.get("/getOrders", (req, res) => {
+  db.getOrders((err, result) => {
     console.log("RESULTTTTT1", result); // result = result[0]
 
     if (err) {
@@ -132,9 +124,9 @@ app.get("/getOrders", function (req, res) {
     } else {
       console.log("type", result); // res.send(result)
 
-      var orders = {};
+      let orders = {};
 
-      for (var item in result) {
+      for (let item in result) {
         console.log("ITEM: ", result[item]);
 
         if (!orders[result[item].id]) {
@@ -164,8 +156,8 @@ app.get("/getOrders", function (req, res) {
     }
   });
 });
-app.get("/categories", function (req, res) {
-  _queries["default"].getCategories(function (err, result) {
+app.get("/categories", (req, res) => {
+  db.getCategories((err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -174,9 +166,9 @@ app.get("/categories", function (req, res) {
     }
   });
 });
-app.get("/inventory", function (req, res) {
+app.get("/inventory", (req, res) => {
   // console.log('server', req.query.product)
-  _queries["default"].getInventory(function (err, result) {
+  db.getInventory((err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -200,8 +192,8 @@ app.get("/inventory", function (req, res) {
 * Single Upload
 */
 
-app.post('/profile-img-upload', function (req, res) {
-  profileImgUpload(req, res, function (error) {
+app.post('/profile-img-upload', (req, res) => {
+  profileImgUpload(req, res, error => {
     // console.log( 'requestOkokok', req.file );
     // console.log( 'error', error );
     if (error) {
@@ -216,8 +208,8 @@ app.post('/profile-img-upload', function (req, res) {
         res.json('Error: No File Selected');
       } else {
         // If Success
-        var imageName = req.file.key;
-        var imageLocation = req.file.location; // Save the file name into database into profile model
+        const imageName = req.file.key;
+        const imageLocation = req.file.location; // Save the file name into database into profile model
 
         res.json({
           image: imageName,
@@ -227,17 +219,16 @@ app.post('/profile-img-upload', function (req, res) {
     }
   });
 });
-app.post('/addItem', function (req, res) {
+app.post('/addItem', (req, res) => {
   console.log("ITEM OBJECT BEING ADDED", req.body);
-  var item = [];
+  let item = [];
 
-  for (var property in req.body) {
+  for (let property in req.body) {
     item.push(req.body[property]);
   }
 
   console.log(item);
-
-  _queries["default"].addInventoryItem(item, function (err, result) {
+  db.addInventoryItem(item, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -245,37 +236,19 @@ app.post('/addItem', function (req, res) {
     }
   });
 });
-app["delete"]('/inventory', function (req, res) {
+app.delete('/inventory', function (req, res) {
   console.log(req.body);
-  var id = [req.body.id];
-
-  _queries["default"].removeInventoryItem(id, function (err, result) {
+  let id = [req.body.id];
+  db.removeInventoryItem(id, (err, result) => {
     if (err) {
       console.log(err);
     } else {
       console.log(result);
       res.send(result);
     }
-  }); // res.send('Got a DELETE request at /user')
-
+  });
 }); // End of single profile upload
-// s3bucket.upload(params, function(err, data) {
-//   if (err) {
-//     res.status(500).json({ error: true, Message: err });
-//   } else {
-//     res.send({ data });
-//     var newFileUploaded = {
-//       description: req.body.description,
-//       fileLink: s3FileURL + file.originalname,
-//       s3_key: params.Key
-//     };
-// var document = new DOCUMENT(newFileUploaded);
-// document.save(function(error, newFile) {
-//   if (error) {
-//     throw error;
-//   }
-// });
 
-app.listen(PORT, function () {
-  console.log("Server listening at port ".concat(PORT, ". cwm"));
+app.listen(PORT, () => {
+  console.log(`Server listening at port ${PORT}. cwm`);
 });

@@ -1,6 +1,6 @@
 // import React from "react";
 import Banner from "./Banner";
-import Cart from "./Cart";
+// import Cart from "./Cart";
 import Menu from "./Menu";
 import Axios from "axios";
 import { Component } from "React";
@@ -162,15 +162,7 @@ class Home extends Component {
               convertPriceToString={this.convertPriceToString}
             />
           </div>
-          <div className="bbqList">
-            <Cart
-              clearOrder={this.clearOrder}
-              total={this.state.total}
-              products={this.state.products}
-              cartItems={this.state.cart}
-              convertPriceToString={this.convertPriceToString}
-            />
-          </div>
+
           <div className="footer"></div>
         </div>
       </div>

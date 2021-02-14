@@ -9,41 +9,91 @@ import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 // import ProductModal from './ProductModal';
 
-const Products = ({ loaded, products, addToCart, cartItems}) => {
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+const Products = ({ loaded, products, addToCart, cartItems, convertPriceToString}) => {
   const [open, setOpen] = React.useState(false);
   const [quantity, handleChange] = React.useState("0");
   const [customerName, handleNameChange] = React.useState("");
   const [currentProduct, setProduct] = React.useState({});
-  console.log("T/F?", !cartItems)
-  // let currentQuantity = 0
-  let selectedQuantity = 0
-  let currentQuantity = currentProduct.quantity
-  // const [value, handleChange] = React.useState('');
+  const matches = useMediaQuery("(min-width:600px)");
+  const [currentCard, setCurrentCard] = React.useState("");
+
+  console.log("T/F?", !cartItems);
+  let selectedQuantity = 0;
+  let currentQuantity = currentProduct.quantity;
+
   const useStyles = makeStyles({
     root: {
       width: 250,
       marginTop: 25,
       marginBottom: 25,
+      height: 400,
+      outline: "none",
+      border: "none",
+      float: 'left',
+      alignItems: "center",
     },
     media: {
       height: 250,
       width: 250,
     },
+    formMedia: {
+      width: "100%",
+      height: "auto",
+      borderRadius: "10%",
+    },
+    productBox: {
+      display: "flex",
+      flexFlow: "row wrap",
+      padding: "8px",
+      margin: "8px"
+    },
+    cardContainer: {
+      display: "block",
+      boxSizing: "border-box",
+      marginLeft:"auto",
+      marginRight:"auto",
+      paddingLeft: "16px",
+      paddingRight:"16px"
+    }
+
   });
+  const useStylesModal = makeStyles((theme) => ({
+    paper: {
+      position: "absolute",
+      width: 400,
+      maxHeight: 800,
+      backgroundColor: theme.palette.background.paper,
+      border: "none",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+      outline: "none",
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      margin: '0 auto',
+      display: 'table',
+      textAlign: "center",
+      borderRadius: "5%",
+    },
+    form: {
+      display: "inline-block",
+      textAlign: "center",
+      left: "40%",
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+    // productBox
+  }));
 
   const classes = useStyles();
-
+  const ModalClasses = useStylesModal();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -52,60 +102,64 @@ const Products = ({ loaded, products, addToCart, cartItems}) => {
     setOpen(false);
   };
 
-  if(cartItems[currentProduct.product_name]){
-    selectedQuantity = cartItems[currentProduct.product_name].quantity
-     currentQuantity = currentProduct.quantity - selectedQuantity
+  if (cartItems[currentProduct.product_name]) {
+    selectedQuantity = cartItems[currentProduct.product_name].quantity;
+    currentQuantity = currentProduct.quantity - selectedQuantity;
   }
-
-  // if(cartItems.length > 0){
-  //   if(cartItems[currentProduct.product_name]){
-  //     console.log("CI AND STUFF", cartItems[currentProduct.product_name])
-    // }
-  // } else {
-    // console.log("nope", currentProduct)
-  // }
 
   const handleSubmit = (event) => {
-    console.log("selected", currentQuantity - selectedQuantity)
+    console.log(
+      "currentQuantity",
+      currentQuantity,
+      "selectedQuantity",
+      selectedQuantity
+    );
     event.preventDefault();
-    console.log("currentProduct", currentProduct.quantity)
-    if ((currentQuantity - selectedQuantity) < 0){
-
-      alert(`Please select another quantity. Only ${currentQuantity} left!`)
+    console.log("currentProduct", currentProduct);
+    // console.log("quantitty", typeof quantity)
+    if (quantity==='0'){
+      alert('Please select a quantity greater than zero')
     } else {
-    addToCart({
-      productName: currentProduct.product_name,
-      quantity: parseInt(quantity),
-      price: currentProduct.price,
-      id: currentProduct.id,
-      originalQuantity: currentProduct.quantity
-    });
-    // getProducts(currentProduct.category)
-    handleClose();
-  }
-}
-  const body = (
-    <div className="paper">
-      <h2 id="simple-modal-title">{currentProduct.product_name}</h2>
-      <div className="order-form">
-      {currentQuantity < 5 ? <div>
-          Only {currentQuantity} left
-        </div> : null}
-        <form onSubmit={handleSubmit}>
 
+        addToCart({
+          productName: currentProduct.product_name,
+          quantity: parseInt(quantity),
+          price: currentProduct.price,
+          id: currentProduct.id,
+          originalQuantity: currentProduct.quantity,
+          productInfo: currentProduct
+        });
+        // getProducts(currentProduct.category)
+        handleClose();
+
+    }
+  };
+  let createPullDown = () => {
+    let items = [];
+    for (let i = 0; i <= currentQuantity; i++) {
+      items.push(<option value={i}>{i}</option>);
+    }
+    return items;
+  };
+
+  const body = (
+    <div className={ModalClasses.paper}>
+    {console.log("ASJIFJIJDSF",  currentProduct.price)}
+      <img className={classes.formMedia} src={currentProduct.image_url} />
+      <h2 id="simple-modal-title">{currentProduct.product_name}</h2>
+      {console.log("CCCCCCCCCCCCCCCCC",  currentProduct.price)}
+      <h3>${currentProduct.price}</h3>
+      <div className="order-form">
+        {currentQuantity < 5 ? <div>Only {currentQuantity} left</div> : null}
+        <form className={ModalClasses.form} onSubmit={handleSubmit}>
           <label>
             Quantity:
             <select onChange={(e) => handleChange(e.target.value)}>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+              {createPullDown()}
             </select>
           </label>
           <Button type="submit">
-          <AddShoppingCartIcon />
+            <AddShoppingCartIcon />
           </Button>
         </form>
       </div>
@@ -118,77 +172,88 @@ const Products = ({ loaded, products, addToCart, cartItems}) => {
   } else {
     productData = products;
     return (
-      <div>
-        <Box
-          display="flex"
-          flexwrap="nowrap"
-          p={1}
-          m={1}
-          bgcolor="background.paper"
-          css={{ maxWidth: 300 }}
-        >
-          {productData.map((product) => {
-            console.log(product);
-            let priceString = product.price.toString();
-            console.log(priceString.length);
-            if (priceString.includes(".")) {
-              if (priceString.split(".")[1].length === 1) {
-                priceString += "0";
-              }
-            } else {
-              priceString += ".00";
+      <Box
+      className={classes.productBox}
+        display="flex"
+        // flexwrap="nowrap"
+        p={1}
+        m={1}
+        // bgcolor="background.paper"
+        // css={{ maxWidth: 300 }}
+      >
+        {productData.map((product) => {
+          console.log("ZZZZZZZZZ", product);
+          {/* let priceString = product.price.toString();
+          console.log(priceString.length);
+          if (priceString.includes(".")) {
+            if (priceString.split(".")[1].length === 1) {
+              console.log("NEW STRING", priceString)
+              priceString += "0";
+              console.log("STRING AGAIN", priceString)
             }
+          } else {
+            priceString += ".00";
+          } */}
+          console.log("PROD PRICE", product.price)
+          let priceString = convertPriceToString(product.price)
+          console.log("PS", priceString)
+          return (
+            <div className={classes.cardContainer}>
+              <Card
+                onMouseOver={() => {
+                  setCurrentCard(product.product_name);
+                }}
+                onMouseOut={() => {
+                  setCurrentCard("");
+                }}
+                raised={currentCard === product.product_name ? true : false}
+                className={classes.root}
+                // height={400}
+                onClick={() => {
+                  let currentProduct = product;
+                  currentProduct.price = convertPriceToString(product.price)
+                  setProduct(currentProduct);
+                  handleOpen();
+                }}
 
-            return (
-              <Box p={1} bgcolor="grey.300">
-              <div className="cardContainer">
-                <Card
-                  className={classes.root}
-                  onClick={() => {
-                    setProduct(product);
-                    handleOpen();
-                  }}
-                >
-                <Box p={1}>
-                  <CardActionArea>
-                    <CardMedia
-                      className={classes.media}
-                      image={product.image_url}
-                      title={product.product_name}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {product.product_name}
-                      </Typography>
-                      {/* <ProductModal product={product} addToCart={addToCart}/> */}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={product.image_url}
+                    title={product.product_name}
+                    // height={200px}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {product.product_name}
+                    </Typography>
+                    {/* <ProductModal product={product} addToCart={addToCart}/> */}
 
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        ${priceString}
-                        {/* <img className='card-image' src={product.image_url} /> */}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions></CardActions>
-                  </Box>
-                </Card>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="simple-modal-title"
-                  aria-describedby="simple-modal-description"
-                >
-                  {body}
-                </Modal>
-              </div>
-              </Box>
-            );
-          })}
-        </Box>
-      </div>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      ${priceString}
+                      {/* <img className='card-image' src={product.image_url} /> */}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions></CardActions>
+              </Card>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+              >
+                {body}
+              </Modal>
+            </div>
+          );
+        })}
+      </Box>
     );
   }
 };

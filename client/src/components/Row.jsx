@@ -80,7 +80,7 @@ function Row(props) {
                       <TableCell component="th" scope="row">
                         {productRow.productName}
                       </TableCell>
-                      <TableCell>{productRow.price}</TableCell>
+                      <TableCell>${productRow.price}</TableCell>
                     </TableRow>
 
                   )}

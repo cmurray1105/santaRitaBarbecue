@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
+    "start": "node server/server.compiled.js",
     "start-webpack": "webpack --watch --mode development --inline --progress",
     "build": "babel server/server.js --out-file server/server.compiled.js",
     "eb-start": "npm run build && npm run start"

@@ -3,11 +3,11 @@ import Banner from "./Banner";
 // import Cart from "./Cart";
 import Menu from "./Menu";
 import Axios from "axios";
-import { Component } from "React";
+import React from "React";
 import Navbar from "./Navbar";
 // import './bootstrap/dist/css/bootstrap.min.css';
 // import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
-class Home extends Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

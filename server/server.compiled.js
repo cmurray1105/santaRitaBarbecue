@@ -1,9 +1,9 @@
-import path from "path";
-import express from "express";
+const path = require("path");
+const express =require("express");
 
 require("dotenv").config();
 
-import db from "../db/queries";
+const db= require("../db/queries");
 
 const multerS3 = require('multer-s3');
 

@@ -56,9 +56,15 @@ const app = express();
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
 
+app.get('/loaderio-52db470b27d41c196eddc9a3350511ce', (req, res) => {
+  res.send("just gonna send it");
+
+}
+
 app.get("/", (req, res) => {
   res.send("just gonna send it");
 });
+
 
 app.get("/products", (req, res) => {
   // console.log('server', req.query.product)

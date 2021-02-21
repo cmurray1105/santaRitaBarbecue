@@ -7,6 +7,10 @@ const multer = require('multer');
 const url = require('url');
 const AWS = require("aws-sdk");
 
+// SQL_HOST: 'localhost'
+// SQL_USER: 'root'
+// SQL_PASSWORD: 'Bruins2011!'
+// SQL_DATABASE: 'barbecue'
 console.log("ENV AND STUFF", process.env.BUCKET, process.env.ACCESS_KEY, process.env.SECRET, process.env.SQL_HOST, process.env.SQL_USER, process.env.SQL_PASSWORD, process.env.SQL_DATABASE)
 const s3 = new AWS.S3({
   accessKeyId: process.env.ACCESS_KEY,

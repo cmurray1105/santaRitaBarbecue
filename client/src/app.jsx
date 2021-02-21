@@ -37,7 +37,7 @@ export default class App extends React.Component {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/Admin">Orders</Link>
+              <Link to="/Admin">Admin</Link>
             </li>
           </ul>
         </nav>

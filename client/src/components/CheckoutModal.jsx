@@ -147,6 +147,7 @@ export default function CheckoutModal(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("SUBMIT BEING HANDLED AND STUFF")
+    if (streetAddress.length>0 && customerName.length > 0 && email.length > 0 && phone.length > 0){
     axios
 .post("/addOrder", {
         address: streetAddress,
@@ -206,7 +207,10 @@ export default function CheckoutModal(props) {
             console.log(err);
           }
         })
+        } else {
+          alert('Please complete checkout form')
         }
+      }
 
   const body = (
     <div className={classes.paper}>

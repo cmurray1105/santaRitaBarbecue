@@ -1,18 +1,13 @@
+require("newrelic");
 const path = require("path");
-
 const express = require("express");
-
 require("dotenv").config();
-
 const db = require("../db/queries");
-
 const multerS3 = require('multer-s3');
-
 const multer = require('multer');
-
 const url = require('url');
+const AWS = require("aws-sdk"); // SQL_HOST: 'localhost';
 
-const AWS = require("aws-sdk"); // SQL_HOST: 'localhost'
 // SQL_USER: 'root'
 // SQL_PASSWORD: 'Bruins2011!'
 // SQL_DATABASE: 'barbecue'

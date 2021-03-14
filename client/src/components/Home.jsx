@@ -12,42 +12,40 @@ class Home extends React.Component {
       total: 0,
       cart: {},
       categories: [],
-      quantity: 0
+      quantity: 0,
     };
     this.getProducts = this.getProducts.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.clearOrder = this.clearOrder.bind(this);
     this.getCategories = this.getCategories.bind(this);
     this.convertPriceToString = this.convertPriceToString.bind(this);
-    this.cartQuantityCalc = this.cartQuantityCalc.bind(this)
-    this.increaseQuantity = this.increaseQuantity.bind(this)
-    this.decreaseQuantity = this.decreaseQuantity.bind(this)
+    this.cartQuantityCalc = this.cartQuantityCalc.bind(this);
+    this.increaseQuantity = this.increaseQuantity.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
     // this.categorySelected = this.categorySelected.bind(this)
   }
   componentDidMount() {
     this.getProducts("meats");
     this.getCategories();
-    this.cartQuantityCalc()
+    this.cartQuantityCalc();
   }
-  cartQuantityCalc = () =>{
+  cartQuantityCalc = () => {
     let total = 0;
-  for (let item in this.state.cart){
-    console.log("IQ", item)
-    total = total + this.state.cart[item].quantity
-  }
-  this.setState({quantity: total})
-}
+    for (let item in this.state.cart) {
+      total = total + this.state.cart[item].quantity;
+    }
+    this.setState({ quantity: total });
+  };
   convertPriceToString = (price) => {
     let priceString = price.toString();
-    console.log("First String", priceString)
     if (priceString.includes(".")) {
       if (priceString.split(".")[1].length === 1) {
-        console.log("NEW STRING", priceString);
         priceString += "0";
-        console.log("STRING AGAIN", priceString);
       } else {
-        priceString= priceString.split(".")[0] + '.' + priceString.split(".")[1].slice(0,2)
-        console.log("STRINGY STRING STRING,", priceString)
+        priceString =
+          priceString.split(".")[0] +
+          "." +
+          priceString.split(".")[1].slice(0, 2);
       }
     } else {
       priceString += ".00";
@@ -56,7 +54,6 @@ class Home extends React.Component {
   };
   getCategories = () => {
     Axios.get("/categories").then((result) => {
-      console.log("CATEGORIES", result.data);
       let cats = [];
       for (let i = 0; i < result.data.length; i++) {
         cats.push(result.data[i].name);
@@ -81,26 +78,24 @@ class Home extends React.Component {
       });
   }
   increaseQuantity(item) {
-    console.log("CALLED IN INCREASE")
     let cartItems = this.state.cart;
-    cartItems[item].quantity++
-    this.setState({cart:cartItems})
-    this.cartQuantityCalc()
+    cartItems[item].quantity++;
+    this.setState({ cart: cartItems });
+    this.cartQuantityCalc();
   }
   decreaseQuantity(item) {
     let cartItems = this.state.cart;
-    cartItems[item].quantity--
-    if (cartItems[item].quantity === 0){
-      delete cartItems[item]
+    cartItems[item].quantity--;
+    if (cartItems[item].quantity === 0) {
+      delete cartItems[item];
+    }
+    this.setState({ cart: cartItems });
+    this.cartQuantityCalc();
   }
-  this.setState({cart:cartItems})
-  this.cartQuantityCalc()
-}
   addToCart(item) {
     // let ids = this.state.productIds;
     let total = this.state.total;
     let cartItems = this.state.cart;
-    console.log("ITEMMMM", item);
     if (!cartItems[item.productName]) {
       cartItems[item.productName] = {
         quantity: item.quantity,
@@ -108,23 +103,21 @@ class Home extends React.Component {
         originalQuantity: item.originalQuantity,
         price: item.price,
         image: item.image_url,
-        productInfo: item.productInfo
+        productInfo: item.productInfo,
         // item: this.state.products[item]
       };
     } else {
       // cartItems[item.productName].item.push(products[productName])
       cartItems[item.productName].quantity += item.quantity;
     }
-    this.cartQuantityCalc()
-    console.log("TOTAL TYPE", typeof total);
+    this.cartQuantityCalc();
     total += item.price * item.quantity;
-    console.log("parse", parseInt(total));
     this.setState({ cart: cartItems, total: total });
   }
 
   clearOrder() {
     this.setState({ cart: {}, total: 0 });
-    this.cartQuantityCalc()
+    this.cartQuantityCalc();
   }
 
   render() {
@@ -141,7 +134,7 @@ class Home extends React.Component {
               quantity={this.state.quantity}
               increaseQuantity={this.increaseQuantity}
               decreaseQuantity={this.decreaseQuantity}
-              />
+            />
           </div>
           <div className="header">
             <Banner />

@@ -107,33 +107,6 @@ export default function CheckoutModal(props) {
     }
   }));
 
-  // const theme = createMuiTheme({
-  //   overrides: {
-  //     // Style sheet name ⚛️
-  //     MuiButton: {
-  //       // Name of the rule
-  //       text: {
-  //         // Some CSS
-          // background: background,
-          // // fontWeight : 'bold',
-          // borderRadius: 3,
-          // border: 0,
-          // color: textColor,
-          // height: 48,
-          // padding: '0 30px',
-          // boxShadow: '0 3px 5px 2px  grey',
-          // display: 'block',
-          // marginLeft: 'auto',
-          // marginRight: 'auto',
-          // bottom: 0
-
-  //       },
-
-  //     },
-  //   },
-  // });
-
-
   const classes = useStyles();
 
   const handleOpen = () => {
@@ -146,7 +119,6 @@ export default function CheckoutModal(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("SUBMIT BEING HANDLED AND STUFF chris", customerName !== "")
     if (streetAddress !== "" && customerName !== "" && email !== "" && phone !== ""){
     axios
 .post("/addOrder", {
@@ -191,8 +163,6 @@ export default function CheckoutModal(props) {
         for (let item in props.cartItems){
           axios
           .post('./updateQuantity', {quantity: (props.cartItems[item].originalQuantity - props.cartItems[item].quantity), productName: item}).then((result)=>{
-            // console.log("result of update", result)
-
           })
           .catch((err)=>{
             console.log(err)

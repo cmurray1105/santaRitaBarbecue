@@ -1,12 +1,8 @@
-// import React from "react";
 import Banner from "./Banner";
-// import Cart from "./Cart";
 import Menu from "./Menu";
 import Axios from "axios";
 import React from "React";
 import Navbar from "./Navbar";
-// import './bootstrap/dist/css/bootstrap.min.css';
-// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +13,6 @@ class Home extends React.Component {
       cart: {},
       categories: [],
       quantity: 0
-      // productIds: [],
     };
     this.getProducts = this.getProducts.bind(this);
     this.addToCart = this.addToCart.bind(this);

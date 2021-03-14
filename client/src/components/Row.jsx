@@ -26,7 +26,6 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   row.products = row.products || []
-  console.log("ROW!!!!!!!", row)
   let rowSplit = row.deliveryDate.split('-')
   let year = rowSplit[0];
   let day = rowSplit[2].slice(0,2);
@@ -73,7 +72,6 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.products.map((productRow) => {
-                    console.log("proRo", productRow)
                     return(
                     <TableRow key={productRow.productName}>
                     <TableCell align="right">{productRow.quantity}</TableCell>

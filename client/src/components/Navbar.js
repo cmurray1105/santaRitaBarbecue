@@ -74,11 +74,9 @@ function Navbar(props) {
   const classes = useStyles();
 
   const node = React.useRef();
-  console.log("nodey node:", node);
 
   const handleClick = (event) => {
     handleAnchor(anchorEl ? null : event.currentTarget);
-    console.log("ANCHORS AWAY!", anchorEl);
     setOpen(!open);
   };
   let items = [];
@@ -86,14 +84,8 @@ function Navbar(props) {
     items.push(props.cartItems[order]);
   }
 
-  // if (Object.keys(props.cartItems).length > 4){
-  //   let itemsOverFour = Object.keys(props.cartItems).length - 4
-  //   let newHeight = (400 + 64 * itemsOverFour).toString()+'px'
-  //   setHeight(newHeight)
-  // }
   let total = 0;
   for (let item in props.cartItems){
-    // console.log("WHAT AN ITEM LOOKS LIKE",
     total = total + ((props.cartItems[item].price) * props.cartItems[item].quantity)
   }
   const handleClickAway = (event) => {

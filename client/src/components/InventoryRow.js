@@ -60,12 +60,10 @@ const useRowStyles = makeStyles({
 function InventoryRow(props) {
   const [hovered, setHovered] = React.useState(false)
   const row = props.row
-  console.log("ROW", row)
   const classes = useRowStyles();
   const deleteItem = (id)=>{
     axios.delete('/inventory', { data: {id: id}})
     .then((result=>{
-      console.log("INV DELETE", result)
       props.getInventory()
     }
     ))
@@ -82,7 +80,6 @@ onMouseEnter={()=>{setHovered(true)}}
 onMouseLeave={()=>{setHovered(false)}}
 className={hovered ? classes.hovered : classes.button}
 onClick={()=>{
-  console.log("ROW ROW ROW", row.id)
   deleteItem(row.id)}}>DELETE</button>
 </TableRow>
 </>

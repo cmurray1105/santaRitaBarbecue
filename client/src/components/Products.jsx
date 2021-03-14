@@ -24,7 +24,6 @@ const Products = ({ loaded, products, addToCart, cartItems, convertPriceToString
   const matches = useMediaQuery("(min-width:600px)");
   const [currentCard, setCurrentCard] = React.useState("");
 
-  console.log("T/F?", !cartItems);
   let selectedQuantity = 0;
   let currentQuantity = currentProduct.quantity;
 
@@ -108,15 +107,7 @@ const Products = ({ loaded, products, addToCart, cartItems, convertPriceToString
   }
 
   const handleSubmit = (event) => {
-    console.log(
-      "currentQuantity",
-      currentQuantity,
-      "selectedQuantity",
-      selectedQuantity
-    );
     event.preventDefault();
-    console.log("currentProduct", currentProduct);
-    // console.log("quantitty", typeof quantity)
     if (quantity==='0'){
       alert('Please select a quantity greater than zero')
     } else {
@@ -144,10 +135,8 @@ const Products = ({ loaded, products, addToCart, cartItems, convertPriceToString
 
   const body = (
     <div className={ModalClasses.paper}>
-    {console.log("ASJIFJIJDSF",  currentProduct.price)}
       <img className={classes.formMedia} src={currentProduct.image_url} />
       <h2 id="simple-modal-title">{currentProduct.product_name}</h2>
-      {console.log("CCCCCCCCCCCCCCCCC",  currentProduct.price)}
       <h3>${currentProduct.price}</h3>
       <div className="order-form">
         {currentQuantity < 5 ? <div>Only {currentQuantity} left</div> : null}
@@ -166,7 +155,6 @@ const Products = ({ loaded, products, addToCart, cartItems, convertPriceToString
     </div>
   );
   let productData = [];
-  console.log(loaded);
   if (!loaded) {
     return null;
   } else {
@@ -182,21 +170,7 @@ const Products = ({ loaded, products, addToCart, cartItems, convertPriceToString
         // css={{ maxWidth: 300 }}
       >
         {productData.map((product) => {
-          console.log("ZZZZZZZZZ", product);
-          {/* let priceString = product.price.toString();
-          console.log(priceString.length);
-          if (priceString.includes(".")) {
-            if (priceString.split(".")[1].length === 1) {
-              console.log("NEW STRING", priceString)
-              priceString += "0";
-              console.log("STRING AGAIN", priceString)
-            }
-          } else {
-            priceString += ".00";
-          } */}
-          console.log("PROD PRICE", product.price)
           let priceString = convertPriceToString(product.price)
-          console.log("PS", priceString)
           return (
             <div className={classes.cardContainer}>
               <Card

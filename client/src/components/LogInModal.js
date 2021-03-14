@@ -144,65 +144,6 @@ export default function LogInModal(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("SUBMIT BEING HANDLED AND STUFF")
-//     axios
-// .post("/addOrder", {
-//         address: streetAddress,
-//         customerName: customerName,
-//         deliveryDate: startDate,
-//         neighborhood: neighborhood,
-//         cartItems: props.cartItems,
-//         email: email,
-//         phone: phone
-//       })
-
-//       .then((result) => {
-//         let generateItemList = ()=> {
-//           let productString= ''
-//           let products = []
-//           for (let item in props.cartItems){
-//             products.push(item)
-//           }
-//           for (let i = 0; i < products.length; i++){
-//             if (i === products.length-1){
-//               productString += `${products[i]}`
-//             } else {
-//               productString += `${products[i]}, `
-//             }
-//           }
-//           console.log(productString)
-//           return productString
-//       }
-//         let templateParams = {
-//           from_name: 'christopher.murray.bbqdev@gmail.com',
-//           to_name: email,
-//           customerName: customerName,
-//           message_html: generateItemList()
-//          }
-//         emailjs.send(
-//           'service_6gxzrwa',
-//           'template_fu5eins',
-//            templateParams,
-//           'user_975JwJzPB6r4yxiDzOfHn'
-//      )
-//         for (let item in props.cartItems){
-//           axios
-//           .post('./updateQuantity', {quantity: (props.cartItems[item].originalQuantity - props.cartItems[item].quantity), productName: item}).then((result)=>{
-//             // console.log("result of update", result)
-
-//           })
-//           .catch((err)=>{
-//             console.log(err)
-//           })
-//         }
-//           handleClose()
-//           props.clearOrder()
-
-//       })
-//         .catch((err)=>{
-//           if (err){
-//             console.log(err);
-//           }
-//         })
         }
 
   const body = (

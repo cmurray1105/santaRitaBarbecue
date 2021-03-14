@@ -4,7 +4,6 @@ import Box from "@material-ui/core/Box";
 
 export default function TabPanel(props) {
   const { children, value, index} = props;
-console.log("props", props, "children", children)
   return (
     <div
       role="tabpanel"

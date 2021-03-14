@@ -1,13 +1,18 @@
-require("newrelic");
 const path = require("path");
-const express = require("express");
-require("dotenv").config();
-const db = require("../db/queries");
-const multerS3 = require('multer-s3');
-const multer = require('multer');
-const url = require('url');
-const AWS = require("aws-sdk"); // SQL_HOST: 'localhost';
 
+const express = require("express");
+
+require("dotenv").config();
+
+const db = require("../db/queries");
+
+const multerS3 = require('multer-s3');
+
+const multer = require('multer');
+
+const url = require('url');
+
+const AWS = require("aws-sdk"); // SQL_HOST: 'localhost'
 // SQL_USER: 'root'
 // SQL_PASSWORD: 'Bruins2011!'
 // SQL_DATABASE: 'barbecue'
@@ -61,7 +66,6 @@ const app = express();
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
 app.get('/loaderio-52db470b27d41c196eddc9a3350511ce', (req, res) => {
-  console.log('stuff');
   res.send("loaderio-52db470b27d41c196eddc9a3350511ce");
 });
 app.get("/", (req, res) => {

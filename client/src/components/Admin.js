@@ -38,13 +38,11 @@ const Admin = (props) =>{
     axios
     .get("/categories")
     .then((result) => {
-      console.log("CUTE CAT DATA", result.data)
       setCategories(result.data)
     });
     };
 
   let mapTabs = categories.map((category) => {
-    console.log(category);
     return (
       <Tab
         className={classes.paper}
@@ -54,15 +52,11 @@ const Admin = (props) =>{
   });
   let convertPriceToString = (price) => {
     let priceString = price.toString();
-    console.log("First String", priceString)
     if (priceString.includes(".")) {
       if (priceString.split(".")[1].length === 1) {
-        console.log("NEW STRING", priceString);
         priceString += "0";
-        console.log("STRING AGAIN", priceString);
       } else {
         priceString= priceString.split(".")[0] + '.' + priceString.split(".")[1].slice(0,2)
-        console.log("STRINGY STRING STRING,", priceString)
       }
     } else {
       priceString += ".00";

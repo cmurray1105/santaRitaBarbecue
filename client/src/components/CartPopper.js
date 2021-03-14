@@ -1,22 +1,11 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React, { Component } from "react";
+import { render } from "react-dom";
 // import './style.css';
-import Popper from '@material-ui/core/Popper';
+import Popper from "@material-ui/core/Popper";
 import styled from "styled-components";
-import Grid from '@material-ui/core/Grid';
-
-// const Props = {
-//   content: ReactElement,
-//   children: ReactElement,
-//   open: boolean,
-//   onClose?: () => void;
-//   arrow?: boolean;
-//   placement?: PopperPlacementType;
-// }
-
+import Grid from "@material-ui/core/Grid";
 
 const CartPopper = styled(Popper)`&&{
-
   z-index: 2;
   &[x-placement*="bottom"] .arrow{
 

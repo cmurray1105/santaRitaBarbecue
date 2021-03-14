@@ -1,86 +1,82 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, makeStyles } from '@material-ui/core';
+import React from "react";
+import { Card, CardContent, CardMedia, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    height: '64px',
-    display: 'grid',
-    gridTemplateColumns: '1fr 2fr 1fr',
-    gridTemplateRows: '1fr',
-    gridTemplateAreas: "'image product quantity'"
-
+    height: "64px",
+    display: "grid",
+    gridTemplateColumns: "1fr 2fr 1fr",
+    gridTemplateRows: "1fr",
+    gridTemplateAreas: "'image product quantity'",
   },
   media: {
-    // flexDirection: 'row',
-    // display: 'inline',
-    // justifyContent: 'space-between',
-    height: '64px',
-    borderRadius: '15%',
-    gridArea: 'image'
+    height: "64px",
+    borderRadius: "15%",
+    gridArea: "image",
   },
   wrapper: {
     // display: 'inline-flex',
     // alignItems: 'flex-start'
   },
   text: {
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-    marginLeft: '25px',
-    verticalAlign: 'middle',
-    margin: 'auto',
-    gridArea: 'product'
-    // display: 'inline-block'
+    marginLeft: "25px",
+    verticalAlign: "middle",
+    margin: "auto",
+    gridArea: "product",
   },
   quantButton: {
-    marginTop: '20px',
-    marginLeft: '20px',
-    gridArea:'quantity',
-    verticalAlign: 'middle',
-    float: 'right'
+    marginTop: "20px",
+    marginLeft: "20px",
+    gridArea: "quantity",
+    verticalAlign: "middle",
+    float: "right",
   },
   quantString: {
-    marginLeft:'5px',
-    marginRight:'5px'
-  }
+    marginLeft: "5px",
+    marginRight: "5px",
+  },
 });
-const CartItem = (props) =>{
+const CartItem = (props) => {
   const classes = useStyles();
 
-  console.log("CART ITEM ITEM", props.item)
+  console.log("CART ITEM ITEM", props.item);
   let currentProduct;
-  for (let i = 0; i < props.products.length; i++){
+  for (let i = 0; i < props.products.length; i++) {
     // console.log("product man", product)
-    if (props.products[i].id === props.item.id){
-      currentProduct = props.products[i]
+    if (props.products[i].id === props.item.id) {
+      currentProduct = props.products[i];
+    }
   }
-}
-const handleDecrease = () =>{
-  console.log("hit in cart item de")
-  props.decreaseQuantity(props.item.productInfo.product_name)
-}
-const handleIncrease = () =>{
-  console.log("hit in cart item inc")
-  props.increaseQuantity(props.item.productInfo.product_name)
-}
-console.log("CP", currentProduct)
-return (
-
-
-  <div className={classes.root}>
-   <img
-          className={classes.media}
-          src={props.item.productInfo.image_url}
-        />
-        <h4 className={classes.text}> {props.item.productInfo.product_name} ${props.convertPriceToString(props.item.quantity * props.item.productInfo.price)}</h4>
-        <div className={classes.quantButton}>
-  <button className="value-button" id="decrease" onClick={handleDecrease}>-</button>
-  <span className={classes.quantString}>{props.item.quantity}</span>
-  <button className="value-button" id="increase" onClick={handleIncrease} value="Increase Value">+</button>
-</div>
-
-  </div>
-
-
-)
-}
+  const handleDecrease = () => {
+    props.decreaseQuantity(props.item.productInfo.product_name);
+  };
+  const handleIncrease = () => {
+    props.increaseQuantity(props.item.productInfo.product_name);
+  };
+  return (
+    <div className={classes.root}>
+      <img className={classes.media} src={props.item.productInfo.image_url} />
+      <h4 className={classes.text}>
+        {props.item.productInfo.product_name} $
+        {props.convertPriceToString(
+          props.item.quantity * props.item.productInfo.price
+        )}
+      </h4>
+      <div className={classes.quantButton}>
+        <button className="value-button" id="decrease" onClick={handleDecrease}>
+          -
+        </button>
+        <span className={classes.quantString}>{props.item.quantity}</span>
+        <button
+          className="value-button"
+          id="increase"
+          onClick={handleIncrease}
+          value="Increase Value"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  );
+};
 export default CartItem;

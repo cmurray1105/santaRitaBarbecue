@@ -28,7 +28,7 @@ const getProducts = (category, cb) =>{
 })
 }
 const addDelivery = (params, cb) => {
-  connection.query('INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', params, (err, results)=>{
+  connection.query('INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);', params, (err, results)=>{
     if (err) {
       cb(err, null)
     } else {

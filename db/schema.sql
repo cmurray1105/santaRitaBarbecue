@@ -22,7 +22,8 @@ ordered_at DATETIME NOT NULL,
 scheduled_delivery DATETIME NOT NULL,
 neighborhood VARCHAR(255),
 email VARCHAR(255),
-phone VARCHAR(255)
+phone VARCHAR(255),
+status VARCHAR(255)
 );
 
 CREATE TABLE order_item (
@@ -63,9 +64,9 @@ INSERT INTO product (product_name, category, quantity, image_url, price) VALUES 
 INSERT INTO product (product_name, category, quantity, image_url, price) VALUES ('Whole USDA Prime Brisket', 'Catering', 8, 'https:///bbqbucket2020.s3.us-east-2.amazonaws.com/sausage.jpg', 100.00);
 
 
-INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood) VALUES ('349 Vista Portola Loop', 'Christopher Murray', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South');
+INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone, status) VALUES ('349 Vista Portola Loop', 'Christopher Murray', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South', 'cmurray1105@gmail.com', '6176887762', 'fulfilled');
 
-INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone) VALUES ('349 Vista Portola Loop', 'Nicole Fabiano', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South', 'cmurray1105@gmail.com', '6176887762');
+INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone, status) VALUES ('349 Vista Portola Loop', 'Nicole Fabiano', 'Liberty Hill', '2020-12-23 12:00:00', '2020-12-30 12:00:00', 'Santa Rita Ranch South', 'cmurray1105@gmail.com', '6176887762', 'unfulfilled');
 
 INSERT INTO order_item (product_id, order_id, quantity) VALUES (1, 1, 2);
 
@@ -77,4 +78,6 @@ INSERT INTO order_item (product_id, order_id, quantity) VALUES (5, 2, 1);
 
 INSERT INTO order_item (product_id, order_id, quantity) VALUES (1, 2, 2);
 
-SELECT orders.id, order_item.quantity, product.product_name, product.price, orders.scheduled_delivery, orders.neighborhood, orders.name, orders.street_address, orders.phone, orders.email FROM ((order_item INNER JOIN product ON order_item.product_id = product.id) INNER JOIN orders on order_item.order_id = orders.id);
+SELECT orders.id, order_item.quantity, product.product_name, product.price, orders.scheduled_delivery, orders.neighborhood, orders.name, orders.street_address, orders.phone, orders.email, orders.status FROM ((order_item INNER JOIN product ON order_item.product_id = product.id) INNER JOIN orders on order_item.order_id = orders.id);
+
+SELECT orders.id, order_item.quantity, product.product_name, product.price, orders.scheduled_delivery, orders.neighborhood, orders.name, orders.street_address, orders.phone, orders.email, orders.status FROM ((order_item INNER JOIN product ON order_item.product_id = product.id) INNER JOIN orders on order_item.order_id = orders.id AND orders.status = 'unfulfilled');

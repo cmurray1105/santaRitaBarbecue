@@ -280,14 +280,7 @@ export default function CheckoutModal(props) {
               onChange={(date) => setStartDate(date)}
               minDate={new Date()}
               maxDate={new Date(2021, 3, 31)}
-      //         disabledDays={[
-      //   {
-      //     after: new Date(2021, 1, 31),
-      //     before: new Date(),
-      //   }
-      // ]}
       />
-            {/* <br/> */}
           </label>
           <br />
           <Button
@@ -305,7 +298,6 @@ export default function CheckoutModal(props) {
   console.log(new Date().toISOString().slice(0, 19).replace("T", " "));
   return (
     <div>
-        {/* <ThemeProvider theme={theme}> */}
       <button
       className={classes.button}
       onClick={handleOpen}
@@ -313,7 +305,6 @@ export default function CheckoutModal(props) {
       onMouseLeave={handleExit}>
       PROCEED TO CHECKOUT
       </button>
-      {/* </ThemeProvider> */}
       <Modal
         open={open}
         onClose={handleClose}

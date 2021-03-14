@@ -279,7 +279,7 @@ export default function CheckoutModal(props) {
               selected={startDate}
               onChange={(date) => setStartDate(date)}
               minDate={new Date()}
-              maxDate={new Date(2021, 1, 31)}
+              maxDate={new Date(2021, 3, 31)}
       //         disabledDays={[
       //   {
       //     after: new Date(2021, 1, 31),

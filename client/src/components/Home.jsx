@@ -54,11 +54,15 @@ class Home extends React.Component {
   };
   getCategories = () => {
     Axios.get("/categories").then((result) => {
+      console.log("CATS RESULT", result)
       let cats = [];
       for (let i = 0; i < result.data.length; i++) {
-        cats.push(result.data[i].name);
+        cats.push(result.data[i].category);
       }
       this.setState({ categories: cats });
+    })
+    .catch((err)=>{
+      console.log("cat err", err)
     });
   };
   getProducts(category) {

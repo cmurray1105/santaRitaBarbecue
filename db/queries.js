@@ -6,7 +6,8 @@ const connection = mysql.createConnection({
   host: process.env.SQL_HOST,
   user: process.env.SQL_USER,
   password: process.env.SQL_PASSWORD,
-  database: process.env.SQL_DATABASE
+  database: process.env.SQL_DATABASE,
+  port: '3306'
 });
 
 connection.connect((err) => {
@@ -28,10 +29,12 @@ const getProducts = (category, cb) =>{
 })
 }
 const addDelivery = (params, cb) => {
-  connection.query('INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);', params, (err, results)=>{
+  connection.query('INSERT INTO orders (street_address, name, city, ordered_at, scheduled_delivery, neighborhood, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?);', params, (err, results)=>{
     if (err) {
+      console.log("error: ", err)
       cb(err, null)
     } else {
+      console.log("SUCCESS: ", results)
       cb(null, results)
     }
   })

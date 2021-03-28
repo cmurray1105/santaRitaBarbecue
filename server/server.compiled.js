@@ -89,6 +89,7 @@ app.post("/addOrder", (req, res) => {
   const order = [req.body.address, req.body.customerName, "Liberty Hill", currentDate, req.body.deliveryDate.slice(0, 19).replace("T", " "), req.body.neighborhood, req.body.email, req.body.phone]; // console.log("order:", order)
 
   let id;
+  console.log("order", order);
   db.addDelivery(order, (err, results) => {
     if (err) {
       res.send(err);

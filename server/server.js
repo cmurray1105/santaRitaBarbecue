@@ -92,6 +92,7 @@ app.post("/addOrder", (req, res) => {
   ];
   // console.log("order:", order)
   let id;
+  console.log("order", order)
   db.addDelivery(order, (err, results) => {
     if (err) {
       res.send(err);

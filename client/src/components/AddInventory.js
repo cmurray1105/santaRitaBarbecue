@@ -191,8 +191,8 @@ export default function AddInventory(props) {
     let categoryList = [];
     for (let i = 0; i < props.categories.length; i++) {
       categoryList.push(
-        <option value={props.categories[i].name}>
-          {props.categories[i].name}
+        <option value={props.categories[i].category}>
+          {props.categories[i].category}
         </option>
       );
     }

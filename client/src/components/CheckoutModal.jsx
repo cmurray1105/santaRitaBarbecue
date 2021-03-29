@@ -119,6 +119,7 @@ export default function CheckoutModal(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(props.cartItems)
     // if (streetAddress !== "" && customerName !== "" && email !== "" && phone !== ""){
     axios
 .post("/addOrder", {

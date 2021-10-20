@@ -2,11 +2,15 @@
 const path = require('path')
 // require('dotenv').config()
 const mysql = require('mysql');
+let SQL_HOST = 'localhost'
+let SQL_USER = 'root'
+let DB_PASSWORD = 'Bruins2011!'
+let SQL_DATABASE = 'barbecue'
 const connection = mysql.createConnection({
-  host: process.env.SQL_HOST,
-  user: process.env.SQL_USER,
-  password: process.env.SQL_PASSWORD,
-  database: process.env.SQL_DATABASE,
+  host: SQL_HOST,
+  user: SQL_USER,
+  password: DB_PASSWORD,
+  database: SQL_DATABASE,
   port: '3306'
 });
 
@@ -16,7 +20,7 @@ connection.connect((err) => {
     return;
   }
   console.log("Connected to BBQ DB");
-  console.log(process.env.DB_PASSWORD)
+  console.log(DB_PASSWORD)
 });
 
 const getProducts = (category, cb) =>{

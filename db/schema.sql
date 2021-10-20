@@ -4,6 +4,12 @@ CREATE DATABASE barbecue;
 
 USE barbecue;
 
+  CREATE TABLE categories (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  category VARCHAR(255) NOT NULL
+  );
+
+
 CREATE TABLE product (
   id INT PRIMARY KEY AUTO_INCREMENT,
   product_name VARCHAR(255),
@@ -24,31 +30,30 @@ neighborhood VARCHAR(255),
 email VARCHAR(255),
 phone VARCHAR(255)
 );
+  
 
 CREATE TABLE order_item (
   id INT PRIMARY KEY AUTO_INCREMENT,
   product_id INT NOT NULL,
   order_id INT NOT NULL,
-  quantity INT NOT NULL DEFAULT 0,
+  quantity INT NOT NULL DEFAULT 0
+  );
 
-INDEX `idx_order_item_product` (product_id ASC),
-  CONSTRAINT `fk_order_item_product`
-    FOREIGN KEY (product_id)
-    REFERENCES product(id)
-    );
+-- INDEX `idx_order_item_product` (product_id ASC),
+--   CONSTRAINT `fk_order_item_product`
+--     FOREIGN KEY (product_id)
+--     REFERENCES product(id)
+--     );
 
-ALTER TABLE order_item
-ADD INDEX `idx_order_item_orders` (order_id ASC);
+-- ALTER TABLE order_item
+-- ADD INDEX `idx_order_item_orders` (order_id ASC);
 
-ALTER TABLE order_item
-ADD CONSTRAINT `fk_order_item_order`
-  FOREIGN KEY (order_id)
-  REFERENCES orders (id);
+-- ALTER TABLE order_item
+-- ADD CONSTRAINT `fk_order_item_order`
+--   FOREIGN KEY (order_id)
+--   REFERENCES orders (id);
 
-  CREATE TABLE categories (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  category VARCHAR(255) NOT NULL,
-  )
+
 
 INSERT INTO categories (category) VALUES ('Meats');
 

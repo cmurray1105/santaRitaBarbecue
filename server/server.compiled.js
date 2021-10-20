@@ -18,18 +18,23 @@ const AWS = require("aws-sdk"); // SQL_HOST: 'localhost'
 // SQL_DATABASE: 'barbecue'
 
 
-console.log("ENV AND STUFF", process.env.BUCKET, process.env.ACCESS_KEY, process.env.SECRET, process.env.SQL_HOST, process.env.SQL_USER, process.env.SQL_PASSWORD, process.env.SQL_DATABASE);
+let env = {
+  BUCKET: 'scallywagsmoker',
+  ACCESS_KEY: 'AKIARCN66JVQTWZ7KU5P',
+  SECRET: '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'
+}; // console.log("ENV AND STUFF", env.BUCKET, env.ACCESS_KEY, env.SECRET, env.SQL_HOST, env.SQL_USER, env.SQL_PASSWORD, env.SQL_DATABASE)
+
 const s3 = new AWS.S3({
-  accessKeyId: process.env.ACCESS_KEY,
-  secretAccessKey: process.env.SECRET,
-  Bucket: process.env.BUCKET
+  accessKeyId: env.ACCESS_KEY,
+  secretAccessKey: env.SECRET,
+  Bucket: env.BUCKET
 }); // Multer ships with storage engines DiskStorage and MemoryStorage
 // And Multer adds a body object and a file or files object to the request object. The body object contains the values of the text fields of the form, the file or files object contains the files uploaded via the form.
 
 const profileImgUpload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: process.env.BUCKET,
+    bucket: env.BUCKET,
     acl: 'public-read',
     key: function (req, file, cb) {
       cb(null, path.basename(file.originalname, path.extname(file.originalname)) + '-' + Date.now() + path.extname(file.originalname));
@@ -61,7 +66,7 @@ function checkFileType(file, cb) {
 
 const bodyParser = require("body-parser");
 
-const PORT = process.env.HTTP_PORT || 8080;
+const PORT = env.HTTP_PORT || 8080;
 const app = express();
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
@@ -187,10 +192,10 @@ app.get("/inventory", (req, res) => {
   });
 }); // console.log("req", req.body);
 // const file = req.file;
-// const s3FileURL = process.env.AWS_Uploaded_File_URL_LINK;
+// const s3FileURL = env.AWS_Uploaded_File_URL_LINK;
 //Where you want to store your file
 // var params = {
-//   Bucket: process.env.AWS_BUCKET_NAME,
+//   Bucket: env.AWS_BUCKET_NAME,
 //   Key: file.originalname,
 //   Body: file.buffer,
 //   ContentType: file.mimetype,
